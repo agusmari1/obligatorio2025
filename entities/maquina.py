@@ -38,6 +38,5 @@ class Maquina:
             total+= pieza.costo_adquisicion*cantidad
         self._costo_produccion=total
 
-hola
 
         
