@@ -53,7 +53,15 @@ class Pedido:
                 return False
         return True
 
-        
+def mostrar_datos(self):
+    
+    print("Cliente:", self._cliente.nombre)
+    print("Tipo:", self._cliente.tipo_cliente())
+    print("Máquina:", self._maquina.descripcion)
+    print("Estado:", self._estado)
+    print("Fecha recepción:", self._fecha_recepcion)
+    print("Fecha entrega:", self._fecha_entrega)
+    print("Precio final: $", self._precio_final)
             
         
 

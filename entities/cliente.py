@@ -34,6 +34,14 @@ class ClienteParticular(Cliente):
             return self._cedula
         def tipo_cliente(self):
               return "cliente particular"
+        
+        def mostrar_datos(self):
+            print("Nombre:",self._nombre)
+            print("Telefono:",self._telefono)
+            print("Correo:",self._correo_electronico)
+            print("Cedula:",self._cedula)
+
+
 class Empresa(Cliente):
         def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
             super().__init__(nombre,telefono,correo_electrónico)
@@ -49,4 +57,11 @@ class Empresa(Cliente):
         def pagina_web(self):
             return self._pagina_web
     
-    
+        def mostrar_datos(self):
+            print("Nombre:",self._nombre)
+            print("Telefono:",self._telefono)
+            print("Correo:",self._correo_electronico)
+            print("RUT:",self._RUT)
+            print("Pagina Web:",self._pagina_web)
+            
+

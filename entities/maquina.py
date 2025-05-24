@@ -44,4 +44,9 @@ class Maquina:
             cantidad=req.cantidad
             pieza.cantidad_disponible-=cantidad
 
-        
+    def mostrar_datos(self):
+        print("Descripción:",self._descripcion)
+        print("Costo producción:",self._costo_produccion)
+        print("Va a requerir")
+        for req in self._requerimientos:
+            print("-",req.cantidad, "-",req.pieza.descripcion)

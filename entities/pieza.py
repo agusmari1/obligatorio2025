@@ -47,9 +47,9 @@ class Pieza:
 
     #metodo de impresion
 
-    #def mostrar_datos(self):
-    #   print("Código:", self._codigo)
-    #    print("Descripción:", self._descripcion)
-    #    print("Costo:", self._costo_adquisicion)
-    #    print("Cantidad disponible:", self._cantidad_disponible)
-    #    print("Unidades por lote:", self._unidades_en_lote)  
+    def mostrar_datos(self):
+        print("Código:", self._codigo)
+        print("Descripción:", self._descripcion)
+        print("Costo:", self._costo_adquisicion)
+        print("Cantidad disponible:", self._cantidad_disponible)
+        print("Unidades por lote:", self._unidades_en_lote)  
