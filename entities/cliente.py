@@ -10,6 +10,7 @@ class Cliente(ABC):
         
         self._correo_electronico=correo_electrónico
 
+
     @property
     def nombre(self):
             return self._nombre
@@ -20,6 +21,9 @@ class Cliente(ABC):
     def correo_electronico(self):
             return self._correo_electronico
     
+    def tipo_cliente(self):
+          pass
+    
 class ClienteParticular(Cliente):
         def __init__(self,nombre,telefono,correo_electrónico,cedula):
             super().__init__(nombre,telefono,correo_electrónico)
@@ -28,13 +32,15 @@ class ClienteParticular(Cliente):
         @property
         def cedula(self):
             return self._cedula
-    
+        def tipo_cliente(self):
+              return "cliente particular"
 class Empresa(Cliente):
         def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
             super().__init__(nombre,telefono,correo_electrónico)
             self._RUT=RUT
             self._pagina_web=pagina_web
-
+        def tipo_cliente(self):
+              return "Empresa"
         @property
         def RUT(self):
             return self._RUT

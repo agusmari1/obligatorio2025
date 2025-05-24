@@ -38,5 +38,10 @@ class Maquina:
             total+= pieza.costo_adquisicion*cantidad
         self._costo_produccion=total
 
+    def actualizar_stock(self):
+        for req in self._requerimientos:
+            pieza=req.pieza
+            cantidad=req.cantidad
+            pieza.cantidad_disponible-=cantidad
 
         
