@@ -1,4 +1,4 @@
-from cliente import Cliente
+from cliente import Cliente,ClienteParticular,Empresa
 from maquina import Maquina
 from requerimiento import Requerimiento
 from datetime import datetime
