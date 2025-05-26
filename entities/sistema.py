@@ -4,7 +4,9 @@ from pedido import Pedido
 from reposición import Reposicion
 from requerimiento import Requerimiento
 from datetime import datetime
+from sistema import Sistema 
 
+sistema = Sistema() #creo una instancia de la clase sistema 
 class Sistema:
     def __init__(self):
         self._clientes=[]
