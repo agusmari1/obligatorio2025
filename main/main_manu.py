@@ -1,6 +1,9 @@
-from entities.sistema import Sistema
+from entities. import Sistema
 from entities.maquina import Maquina
-sistema = Sistema()
+from entities.pieza import Pieza
+
+sistema = Sistema() #crear una instancia para poder usar las funciones 
+#por que en este caso si y en los otros que llamamos a otras clases no?
 
 menu_principal = [["1.Registrar:"],
         ["           1.Pieza"],
@@ -79,7 +82,10 @@ def opcion_registrar (menu_registrar):
 
 #REGISTRAR UNA REPOSICION
     elif objetoAregistrar == 5:
-        print ("Se va a registrar una reposicion")
+        print ("Piezas disponibles:")
+        for piezas in sistema._piezas:
+            print (pieza.codigo)
+
         pieza_a_reponer = input("Ingrese el nombre de la pieza que desea reponer")
         cantidad_lotes_a_reponer = int(input("Ingrese la cantidad de lotes que se van a reponer"))
         sistema.registro_reposicion (pieza_a_reponer,cantidad_lotes_a_reponer)
