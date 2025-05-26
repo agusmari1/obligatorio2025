@@ -63,6 +63,11 @@ def opcion_listar (menu_listar):
     for linea in menu_listar:
         print (linea[0])
 
+while opcion_NOvalida(opcion1_2_3):
+    print ("El valor ingresado no es valido")
+    opcion1_2_3 = int(input("Ingrese los valores1,2 o 3: "))
+
+
 if opcion1_2_3 == 1:
     opcion_registrar (menu_registrar)
 elif opcion1_2_3 == 2:
@@ -71,10 +76,6 @@ elif opcion1_2_3 == 3:
     print ("Saliste del sistema")
 else:
     opcion_NOvalida (opcion1_2_3)
-
-while opcion_NOvalida(opcion1_2_3):
-    print ("El valor ingresado no es valido")
-    opcion1_2_3 = int(input("Ingrese los valores1,2 o 3: "))
 
 
 
