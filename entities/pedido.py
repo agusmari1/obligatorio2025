@@ -37,7 +37,7 @@ class Pedido:
     @property
     def fecha_recepcion(self):
         return self._fecha_recepcion
-     @property
+    @property
     def fecha_entrega(self):
         return self._fecha_entrega
     @property

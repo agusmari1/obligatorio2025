@@ -1,4 +1,4 @@
-from requerimiento import Requerimiento
+from requerimientos import Requerimiento
 
 class Maquina:
     _codigo_unico=0
