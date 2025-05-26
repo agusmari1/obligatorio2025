@@ -1,5 +1,6 @@
-
-sistema = Sistema() 
+from entities.sistema import Sistema
+from entities.maquina import Maquina
+sistema = Sistema()
 
 menu_principal = [["1.Registrar:"],
         ["           1.Pieza"],
@@ -34,12 +35,12 @@ menu_listar =[["Listar:"],
         ["           5.Contabilidad"],
         ["           6.Salir"]]
 
-
+# IMPRIMIR EL MENU
 for linea in menu_principal:
     print(linea[0])
    
 print ("-----------------------------")
-
+#INGRESE LA OPCION 
 opcion1_2_3= int(input("Ingrese la opcion que desea ejecutar:registrar, listar o salir:"))
 
 def opcion_NOvalida (opcion1_2_3):
@@ -53,19 +54,38 @@ def opcion_registrar (menu_registrar):
         print (linea[0])
     print ("-----------------")
     objetoAregistrar = int(input("Ingrese una opcion: "))
+
+#REGISTRAR UNA PIEZA 
     if objetoAregistrar == 1:
-        pass
+        print ("Se va a registrar una nueva pieza")
+        descripcion = input("Ingrese la descrpcion de la pieza")
+        costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza"))
+        unidades_en_lote= int(input("ingrese la cantidad de unidades de la pieza"))
+        cantidad_disponible= int(input("Ingrese la cantidad"))
+        sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
+
+#REGISTRAR UNA MAQUINA
     elif objetoAregistrar == 2:
-        pass
+        print ("Se va a registrar una nueva maquina")
+        descripcion = input("Ingrese la descripcion de la maquina")
+    
+# REGISTRAR UN CLIENTE
     elif objetoAregistrar ==3:
-        pass
+        print ("Se va a registrar un cliente")
+
+# REGISTRAR UN PEDIDO
     elif objetoAregistrar == 4:
-        pass
+        print ("Se va a registrar un peido")
+
+#REGISTRAR UNA REPOSICION
     elif objetoAregistrar == 5:
-        pass
+        print ("Se va a registrar una reposicion")
+        pieza_a_reponer = input("Ingrese el nombre de la pieza que desea reponer")
+        cantidad_lotes_a_reponer = int(input("Ingrese la cantidad de lotes que se van a reponer"))
+        sistema.registro_reposicion (pieza_a_reponer,cantidad_lotes_a_reponer)
+
         
     
-
 def opcion_listar (menu_listar):
     for linea in menu_listar:
         print (linea[0])
@@ -76,7 +96,7 @@ while opcion_NOvalida(opcion1_2_3):
     print ("El valor ingresado no es valido")
     opcion1_2_3 = int(input("Ingrese los valores1,2 o 3: "))
 
-
+#DISTINTAS OPCIONES PARA EL VALOR INGRESADO
 if opcion1_2_3 == 1:
     opcion_registrar (menu_registrar)
 elif opcion1_2_3 == 2:
@@ -85,40 +105,8 @@ elif opcion1_2_3 == 3:
     print ("Saliste del sistema")
 else:
     opcion_NOvalida (opcion1_2_3)
+       
 
-
-    def desplegar_menu(menu_principal):
-        for linea in menu_principal:
-            print(linea[0])
-        print ("-----------------------------")
-    opcion1_2_3= int(input("Ingrese la opcion que desea ejecutar:registrar, listar o salir:"))
-
-    def opcion_no_valida(opcion1_2_3):
-        if (opcion1_2_3<1)or (opcion1_2_3>3):
-            return True
-        else:
-            return False
-        
-    def opcion_registrar(menu_registrar):
-        for linea in menu_registrar:
-            print(linea[0])
-        print ("-----------------------------")
-        opcion_a_registar=int(input("Ingrese una opción"))
-        def registrar_pieza():
-            descripción=input("ingrese la descripción del objeto")
-            costo_adquisicion=input("ingrese el costo de adquisición del objeto")
-            unidades_en_lote=input("ingrese la cantidad de unidades del lote del objeto")
-            cantidad_disponible=input("ingrese la cantidad disponible del objeto")
-        def registrar_maquina():
-            descripcion=input("ingrese una descripcion de la maquina")
-        if opcion_a_registar==1:
-            print ("Se va a registar una nueva pieza")
-            registrar_pieza()
-
-        if opcion_a_registar==2:
-            print ("Se va a registar una nueva pieza")
-            registrar_maquina()
-          
 
 
 

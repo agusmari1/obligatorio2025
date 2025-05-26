@@ -5,7 +5,7 @@ from reposición import Reposicion
 from requerimiento import Requerimiento
 from datetime import datetime
 from main import main_manu
-
+from pieza import Pieza
 
 class Sistema:
     def __init__(self):
@@ -26,13 +26,15 @@ class Sistema:
         else:
             self._pedidos_entregados.append(pedido)
     
-    def registro_pieza(self, pieza):
+    def registro_pieza (self, descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible = 0):
+        pieza = Pieza(descripcion,costo_adquisicion,unidades_en_lote,cantidad_disponible)
         self._piezas.append(pieza)
     
     def registro_maquina(self, maquina):
         self._maquinas.append(maquina)
 
-    def registro_reposicion(self,reposicion):
+    def registro_reposicion(self,pieza, cantidad_lotes):
+        reposicion = Reposicion(pieza, cantidad_lotes)
         self._reposiciones.append(reposicion)
         self.actualizar_pedidos_pendientes()
 
@@ -44,7 +46,6 @@ class Sistema:
                 pedido.actualizar_stock()
                 self._pedidos_entregados.append(pedido)
                 self._pedidos_pendientes.remove(pedido)
-
 
     def mostrar_pedidos_entregados(self):
         print("Pedidos entregados")
@@ -78,6 +79,8 @@ class Sistema:
         for maquina in self._maquinas:
             maquina.mostrar_datos()
             print("----------")
+
+    
 
  
 
