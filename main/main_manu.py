@@ -6,6 +6,8 @@
 # from requerimiento import Requerimiento
 # from sistema import Sistema
 
+sistema = Sistema() 
+
 menu_principal = [["1.Registrar:"],
         ["           1.Pieza"],
         ["           2.Maquina"],
@@ -78,6 +80,38 @@ else:
     opcion_NOvalida (opcion1_2_3)
 
 
+    def desplegar_menu(menu_principal):
+        for linea in menu_principal:
+            print(linea[0])
+        print ("-----------------------------")
+    opcion1_2_3= int(input("Ingrese la opcion que desea ejecutar:registrar, listar o salir:"))
+
+    def opcion_no_valida(opcion1_2_3):
+        if (opcion1_2_3<1)or (opcion1_2_3>3):
+            return True
+        else:
+            return False
+        
+    def opcion_registrar(menu_registrar):
+        for linea in menu_registrar:
+            print(linea[0])
+        print ("-----------------------------")
+        opcion_a_registar=int(input("Ingrese una opción"))
+        def registrar_pieza():
+            descripción=input("ingrese la descripción del objeto")
+            costo_adquisicion=input("ingrese el costo de adquisición del objeto")
+            unidades_en_lote=input("ingrese la cantidad de unidades del lote del objeto")
+            cantidad_disponible=input("ingrese la cantidad disponible del objeto")
+        def registrar_maquina():
+            descripcion=input("ingrese una descripcion de la maquina")
+        if opcion_a_registar==1:
+            print ("Se va a registar una nueva pieza")
+            registrar_pieza()
+
+        if opcion_a_registar==2:
+            print ("Se va a registar una nueva pieza")
+            registrar_maquina()
+          
 
 
 

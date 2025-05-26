@@ -4,9 +4,9 @@ from pedido import Pedido
 from reposición import Reposicion
 from requerimiento import Requerimiento
 from datetime import datetime
-from sistema import Sistema 
+from main import main_manu
 
-sistema = Sistema() #creo una instancia de la clase sistema 
+
 class Sistema:
     def __init__(self):
         self._clientes=[]
@@ -78,3 +78,7 @@ class Sistema:
         for maquina in self._maquinas:
             maquina.mostrar_datos()
             print("----------")
+
+ 
+
+    
