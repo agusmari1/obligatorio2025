@@ -1,10 +1,3 @@
-# from cliente import ClienteParticular, Empresa
-# from maquina import Maquina
-# from pedido import Pedido
-# from pieza import Pieza
-# from reposicion import Reposicion
-# from requerimiento import Requerimiento
-# from sistema import Sistema
 
 menu_principal = [["1.Registrar:"],
         ["           1.Pieza"],
@@ -56,12 +49,26 @@ def opcion_NOvalida (opcion1_2_3):
 def opcion_registrar (menu_registrar):
     for linea in menu_registrar:
         print (linea[0])
-    print ("------------------------")
+    print ("-----------------")
+    objetoAregistrar = int(input("Ingrese una opcion: "))
+    if objetoAregistrar == 1:
+        pass
+    elif objetoAregistrar == 2:
+        pass
+    elif objetoAregistrar ==3:
+        pass
+    elif objetoAregistrar == 4:
+        pass
+    elif objetoAregistrar == 5:
+        pass
+        
     
 
 def opcion_listar (menu_listar):
     for linea in menu_listar:
         print (linea[0])
+    print ("----------------")
+
 
 while opcion_NOvalida(opcion1_2_3):
     print ("El valor ingresado no es valido")
