@@ -10,7 +10,6 @@ class Cliente(ABC):
         
         self._correo_electronico=correo_electrónico
 
-
     @property
     def nombre(self):
             return self._nombre
@@ -32,6 +31,7 @@ class ClienteParticular(Cliente):
         @property
         def cedula(self):
             return self._cedula
+        
         def tipo_cliente(self):
               return "cliente particular"
         
@@ -41,27 +41,44 @@ class ClienteParticular(Cliente):
             print("Correo:",self._correo_electronico)
             print("Cedula:",self._cedula)
 
-
 class Empresa(Cliente):
-        def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
-            super().__init__(nombre,telefono,correo_electrónico)
-            self._RUT=RUT
-            self._pagina_web=pagina_web
-        def tipo_cliente(self):
-              return "Empresa"
-        @property
-        def RUT(self):
-            return self._RUT
+    def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
+        super().__init__(nombre,telefono,correo_electrónico)
+        self._RUT=RUT
+        self._pagina_web=pagina_web
     
-        @property
-        def pagina_web(self):
-            return self._pagina_web
+    def tipo_cliente(self):
+        return "Empresa"
+
+    @property
+    def RUT(self):
+        return self._RUT
     
-        def mostrar_datos(self):
+    @property
+    def pagina_web(self):
+        return self._pagina_web
+    
+    def mostrar_datos(self):
             print("Nombre:",self._nombre)
             print("Telefono:",self._telefono)
             print("Correo:",self._correo_electronico)
             print("RUT:",self._RUT)
             print("Pagina Web:",self._pagina_web)
-            
+  
 
+
+    def _puede_entregarse(self):
+        for req in self._maquina.requerimientos: #recorre los requerimientos de la maquina(cada requerimiento es:una pieza y cuentas necesita)
+            if req.pieza.cantidad_disponible <req.cantidad: # cuantas hay en stock<cuantas necesita la maquina
+                return False
+        return True
+
+    def mostrar_datos(self):
+    
+        print("Cliente:", self._cliente.nombre)
+        print("Tipo:", self._cliente.tipo_cliente())
+        print("Máquina:", self._maquina.descripcion)
+        print("Estado:", self._estado)
+        print("Fecha recepción:", self._fecha_recepcion)
+        print("Fecha entrega:", self._fecha_entrega)
+        print("Precio final: $", self._precio_final)
