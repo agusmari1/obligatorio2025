@@ -1,7 +1,7 @@
 
 class ClienteRepetido(Exception):
-    def _init__(self):
-        pass
-        print("El cliente ya existe")
-        nueva_cedula=input("vuelva a ingresar la cedula")
-        self.cedula=nueva_cedula
+    def __init__(self):
+        return "El cliente ya existe"
+    
+        
+       
