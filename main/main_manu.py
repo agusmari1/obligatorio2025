@@ -1,7 +1,7 @@
 from entities. import Sistema
 from entities.maquina import Maquina
 from entities.pieza import Pieza
-
+from exceptions.exceptionClienteYaexiste import ClienteRepetido
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 #por que en este caso si y en los otros que llamamos a otras clases no?
 
@@ -118,6 +118,11 @@ def opcion_registrar (menu_registrar):
         correo_electrónico=input("indique el correo electrónico")
         if tipo_cliente=="particular":
             cedula=input("ingrese la cedula")
+            for cliente in sistema._clientes:
+               if isinstance(cliente,ClienteParticular)==True:
+                   if cliente.cedula==cedula:
+                       raise ClienteRepetido
+                   
             nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
         else:
             pagina_web=input("ingrese la pagina web")
