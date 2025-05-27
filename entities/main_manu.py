@@ -1,7 +1,21 @@
+<<<<<<< HEAD:main/main_manu.py
 from entities. import Sistema
 from entities.maquina import Maquina
 from entities.pieza import Pieza
+from exceptions.exceptionClienteYaexiste import ClienteRepetido
+=======
+# import sys 
+# sys.path.append(r'C:\\Users\\Usuario\\OneDrive - Universidad de Montevideo\\Documentos\\GitHub\\obligatorio2025')
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from sistema import Sistema
+from maquina import Maquina
+from pieza import Pieza
+
+>>>>>>> 14318fdf5e0833adf996d4690c55c06badafd438:entities/main_manu.py
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 #por que en este caso si y en los otros que llamamos a otras clases no?
 
@@ -118,6 +132,11 @@ def opcion_registrar (menu_registrar):
         correo_electrónico=input("indique el correo electrónico")
         if tipo_cliente=="particular":
             cedula=input("ingrese la cedula")
+            for cliente in sistema._clientes:
+               if isinstance(cliente,ClienteParticular)==True:
+                   if cliente.cedula==cedula:
+                       raise ClienteRepetido
+                   
             nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
         else:
             pagina_web=input("ingrese la pagina web")
@@ -129,13 +148,13 @@ def opcion_registrar (menu_registrar):
 # REGISTRAR UN PEDIDO
     elif objetoAregistrar == 4:
         print ("Se va a registrar un pedido")
-        sistema.registro_pedido(nuevo_cliente,nueva_maquina)
+        sistema.registro_pedido(nuevo_cliente,Maquina)
 
 #REGISTRAR UNA REPOSICION
     elif objetoAregistrar == 5:
         print ("Piezas disponibles:")
         for piezas in sistema._piezas:
-            print (pieza.codigo, "- ", pieza.descripcion)
+            print (pieza.codigo)
 
         pieza_a_reponer = input("Ingrese el nombre de la pieza que desea reponer")
         cantidad_lotes_a_reponer = int(input("Ingrese la cantidad de lotes que se van a reponer"))

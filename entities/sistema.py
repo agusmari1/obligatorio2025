@@ -4,7 +4,6 @@ from pedido import Pedido
 from reposicion import Reposicion
 from requerimientos import Requerimiento
 from datetime import datetime
-from main import main_manu
 from pieza import Pieza
 
 class Sistema:
