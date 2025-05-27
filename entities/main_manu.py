@@ -1,24 +1,10 @@
-<<<<<<< HEAD:main/main_manu.py
-from entities. import Sistema
+ 
 from entities.maquina import Maquina
 from entities.pieza import Pieza
 from exceptions.exceptionClienteYaexiste import ClienteRepetido
-=======
-# import sys 
-# sys.path.append(r'C:\\Users\\Usuario\\OneDrive - Universidad de Montevideo\\Documentos\\GitHub\\obligatorio2025')
-
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from sistema import Sistema
-from maquina import Maquina
-from pieza import Pieza
-from cliente import Cliente, ClienteParticular, Empresa
-
->>>>>>> 14318fdf5e0833adf996d4690c55c06badafd438:entities/main_manu.py
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 #por que en este caso si y en los otros que llamamos a otras clases no?
+
 
 menu_principal = [["1.Registrar:"],
         ["           1.Pieza"],
@@ -141,7 +127,6 @@ def opcion_registrar (menu_registrar):
         telefono=input("seleccione el telefono")
         correo_electrónico=input("indique el correo electrónico")
         if tipo_cliente=="particular":
-<<<<<<< HEAD
             cedula=input("ingrese la cedula")
             nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
 
@@ -149,15 +134,6 @@ def opcion_registrar (menu_registrar):
             pagina_web=input("ingrese la pagina web")
             RUT=input("ingrese el rut")
             nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
-=======
-            while True:
-                try: 
-                    cedula=input("ingrese la cedula")
-                    for cliente in sistema._clientes:
-                       if isinstance(cliente,ClienteParticular) and cliente.cedula == cedula:
-                         raise ClienteRepetido() 
-                    break
->>>>>>> 3311d31b4974d255b9e4770669001d33eaaf2952
 
                 except ClienteRepetido as e:
                     print (e)
