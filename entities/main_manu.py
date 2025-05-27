@@ -75,7 +75,16 @@ def opcion_registrar (menu_registrar):
 #REGISTRAR UNA PIEZA 
     if objetoAregistrar == 1:
         print ("Se va a registrar una nueva pieza")
-        descripcion = input("Ingrese la descrpcion de la pieza")
+        
+        try:
+            descripcion = input("Ingrese la descrpcion de la pieza")
+            for pieza in sistema._piezas:
+                if pieza.descripcion==pieza:
+                    raise PiezaRepetida()
+                break
+        except PiezaRepetida as e:
+            print(e)
+            
         costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza"))
         unidades_en_lote= int(input("ingrese la cantidad de unidades de la pieza"))
         cantidad_disponible= int(input("Ingrese la cantidad"))
@@ -131,19 +140,42 @@ def opcion_registrar (menu_registrar):
         telefono=input("seleccione el telefono")
         correo_electrónico=input("indique el correo electrónico")
         if tipo_cliente=="particular":
-            cedula=input("ingrese la cedula")
-            for cliente in sistema._clientes:
-               if isinstance(cliente,ClienteParticular)==True:
-                   if cliente.cedula==cedula:
-                       raise ClienteRepetido
-                   
-            nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
-        else:
-            pagina_web=input("ingrese la pagina web")
-            RUT=input("ingrese el rut")
-            nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
+            while True:
+                try: 
+                    cedula=input("ingrese la cedula")
+                    for cliente in sistema._clientes:
+                       if isinstance(cliente,ClienteParticular) and cliente.cedula == cedula:
+                         raise ClienteRepetido() 
+                    break
 
-        sistema.registro_clientes(nuevo_cliente)
+                except ClienteRepetido as e:
+                    print (e)
+
+
+            nuevo_cliente=ClienteParticular(nombre,telefono,correo_electrónico,cedula)
+            sistema.registro_clientes(nuevo_cliente)
+                        
+        else:
+            while True:
+                try:
+                    RUT=input("ingrese el rut")
+                    for cliente in sistema._clientes:
+                        if isinstance(cliente,Empresa):
+                            raise ClienteRepetido()
+                    break
+                    
+                except ClienteRepetido as e:
+                    print (e)
+            
+
+            pagina_web=input("ingrese la pagina web")
+            nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
+            sistema.registro_clientes(nuevo_cliente)
+            
+            
+            
+
+        
 
 # REGISTRAR UN PEDIDO
     elif objetoAregistrar == 4:
