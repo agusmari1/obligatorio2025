@@ -30,8 +30,8 @@ class Sistema:
         pieza = Pieza(descripcion,costo_adquisicion,unidades_en_lote,cantidad_disponible)
         self._piezas.append(pieza)
     
-    def registro_maquina(self, maquina):
-        self._maquinas.append(maquina)
+    def registro_maquina(self, descripcion,requerimientos):
+        self._maquinas.append(descripcion,requerimientos)
 
     def registro_reposicion(self,pieza, cantidad_lotes):
         reposicion = Reposicion(pieza, cantidad_lotes)
@@ -65,6 +65,9 @@ class Sistema:
                 pedido.mostrar_datos()
                 print("----------")
 
+    def obtener_piezas(self):
+        return self._piezas
+     
     def mostrar_clientes(self):
         for cliente in self._clientes:
             cliente.mostrar_datos()
