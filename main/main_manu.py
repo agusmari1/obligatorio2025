@@ -71,14 +71,65 @@ def opcion_registrar (menu_registrar):
     elif objetoAregistrar == 2:
         print ("Se va a registrar una nueva maquina")
         descripcion = input("Ingrese la descripcion de la maquina")
-    
+        requerimientos=[]
+        piezas_disponibles=sistema.obtener_piezas()
+        if len (piezas_disponibles)==0:
+            print("No hay piezas disponibles")
+        else: 
+            continuar="si"
+            while continuar=="si":
+                for pieza in piezas_disponibles:
+                    print(f"{pieza.codigo}: {pieza.descripcion}")
+                    cantidad=int(input("que cantidad de esa pieza necesitás"))
+                    codigo=int(input("ingrese un codigo para su pieza"))
+                    
+                    pieza_seleccionada=None
+                    for p in piezas_disponibles:
+                        if p.codigo==codigo:
+                            pieza_seleccionada=p
+                            break
+                        
+                        if pieza_seleccionada:
+                            req=Requerimiento(pieza_seleccionada,cantidad)
+                            requerimientos.append(req)
+                            continuar=input("deseas agregar otra pieza (si/no)")
+                        else:
+                            print("Codigo no valido")
+                        
+                        nueva_maquina=Maquina(descripcion)
+                        for req in requerimientos:
+                            nueva_maquina.agregar_requerimiento(req)
+
+                        sistema.registro_maquina(nueva_maquina)
+
+
+
+
+                                   
+            
+
+
 # REGISTRAR UN CLIENTE
     elif objetoAregistrar ==3:
         print ("Se va a registrar un cliente")
+        tipo_cliente=input("cliente particular o Empresa")
+        nombre=input("seleccione el nombre")
+        telefono=input("seleccione el telefono")
+        correo_electrónico=input("indique el correo electrónico")
+        if tipo_cliente=="particular":
+            cedula=input("ingrese la cedula")
+            nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
+        else:
+            pagina_web=input("ingrese la pagina web")
+            RUT=input("ingrese el rut")
+            nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
+
+        sistema.registro_clientes(nuevo_cliente)
 
 # REGISTRAR UN PEDIDO
     elif objetoAregistrar == 4:
-        print ("Se va a registrar un peido")
+        print ("Se va a registrar un pedido")
+        sistema.registro_pedido(nuevo_cliente,Maquina)
 
 #REGISTRAR UNA REPOSICION
     elif objetoAregistrar == 5:
