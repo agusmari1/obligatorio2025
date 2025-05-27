@@ -1,6 +1,13 @@
-from entities.sistema import Sistema
-from entities.maquina import Maquina
-from entities.pieza import Pieza
+# import sys 
+# sys.path.append(r'C:\\Users\\Usuario\\OneDrive - Universidad de Montevideo\\Documentos\\GitHub\\obligatorio2025')
+
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from sistema import Sistema
+from maquina import Maquina
+from pieza import Pieza
 
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 #por que en este caso si y en los otros que llamamos a otras clases no?
