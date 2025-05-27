@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from sistema import Sistema
 from maquina import Maquina
 from pieza import Pieza
+from cliente import Cliente, ClienteParticular, Empresa
 
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 #por que en este caso si y en los otros que llamamos a otras clases no?
@@ -126,6 +127,7 @@ def opcion_registrar (menu_registrar):
         if tipo_cliente=="particular":
             cedula=input("ingrese la cedula")
             nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
+
         else:
             pagina_web=input("ingrese la pagina web")
             RUT=input("ingrese el rut")
