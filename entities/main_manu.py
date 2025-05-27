@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  
+=======
+from entities. import Sistema
+>>>>>>> a6719dc95bbe4171f8d7185d6bec59b6d7bd7820
 from entities.maquina import Maquina
 from entities.pieza import Pieza
 from exceptions.exceptionClienteYaexiste import ClienteRepetido
