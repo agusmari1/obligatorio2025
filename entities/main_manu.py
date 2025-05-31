@@ -157,11 +157,21 @@ def opcion_registrar (menu_registrar):
         elif objetoAregistrar == 5:
             print ("Piezas disponibles:")
             for piezas in sistema._piezas:
-                print (pieza.codigo)
+                print (pieza.codigo, "-", pieza.descripcion)
+            pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer"))
+            pieza_encontrada = None
+            for pieza in sistema._piezas:
+                if pieza.codigo == codigo:
+                    pieza_encontrada = pieza
+                    break
+            if pieza_encontrada is not None:
+                cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer:"))
+                sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
+                print ("Reposicion registrada correctamenrte")
+            else:
+                print ("No se encontró ninguna pieza con ese codigo")
 
-            pieza_a_reponer = input("Ingrese el nombre de la pieza que desea reponer")
-            cantidad_lotes_a_reponer = int(input("Ingrese la cantidad de lotes que se van a reponer"))
-            sistema.registro_reposicion (pieza_a_reponer,cantidad_lotes_a_reponer)
+#SAlIR DE REGISTRAR
         elif objetoAregistrar == 6:
             print ("Se vuelve al menu principal")
             
