@@ -57,7 +57,7 @@ def opcion_registrar (menu_registrar):
             print ("Se va a registrar una nueva pieza")
             while True:
                 try:
-                    descripcion = input("Ingrese la descripcion de la pieza")
+                    descripcion = input("Ingrese la descripcion de la pieza: ")
                     for pieza in sistema._piezas:
                         if pieza.descripcion==descripcion:
                             raise PiezaRepetida()
@@ -78,7 +78,7 @@ def opcion_registrar (menu_registrar):
 #REGISTRAR UNA MAQUINA
         elif objetoAregistrar == 2:
             print ("Se va a registrar una nueva maquina")
-            descripcion = input("Ingrese la descripcion de la maquina")
+            descripcion = input("Ingrese la descripcion de la maquina: ")
             requerimientos=[]
             piezas_disponibles=sistema.obtener_piezas()
             if len (piezas_disponibles)==0:
@@ -89,7 +89,7 @@ def opcion_registrar (menu_registrar):
                     print ("Piezas disponibles: ")
                     for pieza in piezas_disponibles:
                         print (pieza.codigo, "-", pieza.descripcion)
-                    codigo=int(input("ingrese el codigo de la pieza que necesita"))
+                    codigo=int(input("Ingrese el codigo de la pieza que necesita: "))
                     pieza_seleccionada = None
 
                     for pieza in piezas_disponibles:
@@ -97,8 +97,8 @@ def opcion_registrar (menu_registrar):
                             pieza_seleccionada = pieza
                             break
                     while pieza_seleccionada is None:
-                            print ("no se encontro una pieza con ese codigo")
-                            codigo = int(input("Ingrese un codigo valido"))
+                            print ("No se encontro una pieza con ese codigo")
+                            codigo = int(input("Ingrese un codigo valido: "))
                             for pieza in piezas_disponibles:
                                 if pieza.codigo == codigo:
                                     pieza_seleccionada = pieza
@@ -106,10 +106,10 @@ def opcion_registrar (menu_registrar):
 
                     if pieza_seleccionada is not None:
                             print (pieza)
-                            cantidad=int(input("que cantidad de esa pieza necesitás"))
+                            cantidad=int(input("Que cantidad de esa pieza necesitás: "))
                             req=Requerimiento(pieza_seleccionada,cantidad)
                             requerimientos.append(req)
-                    continuar=input("deseas agregar otra pieza (si/no)")
+                    continuar=input("Deseas agregar otra pieza (si/no): ")
                 
                                 
                         
@@ -124,14 +124,14 @@ def opcion_registrar (menu_registrar):
 # REGISTRAR UN CLIENTE
         elif objetoAregistrar ==3:
             print ("Se va a registrar un cliente")
-            tipo_cliente=input("cliente particular o Empresa")
+            tipo_cliente=input("Cliente particular o Empresa: ")
             
             if tipo_cliente=="particular":
                 while True:
-                    nombre=input("seleccione el nombre")
-                    cedula=input("ingrese la cedula")
-                    telefono=input("seleccione el telefono")
-                    correo_electrónico=input("indique el correo electrónico")
+                    nombre=input("Seleccione el nombre: ")
+                    cedula=input("Ingrese la cedula: ")
+                    telefono=input("Seleccione el telefono: ")
+                    correo_electrónico=input("Indique el correo electrónico: ")
                     try:
                         for cliente in sistema._clientes:
                             if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
@@ -150,10 +150,10 @@ def opcion_registrar (menu_registrar):
             elif tipo_cliente=="Empresa":
 
                 while True:
-                    nombre=input("seleccione el nombre")
-                    telefono=input("seleccione el telefono")
-                    correo_electrónico=input("indique el correo electrónico")
-                    RUT=input("ingrese el rut")
+                    nombre=input("Seleccione el nombre: ")
+                    telefono=input("Seleccione el telefono: ")
+                    correo_electrónico=input("Indique el correo electrónico: ")
+                    RUT=input("Ingrese el rut: ")
 
                     try:
                         
@@ -164,7 +164,7 @@ def opcion_registrar (menu_registrar):
                     
                     except ClienteRepetido as e:
                         print (e)
-                pagina_web=input("ingrese la pagina web")
+                pagina_web=input("Ingrese la pagina web: ")
                 nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
                 sistema.registro_clientes(nuevo_cliente)
                 break
@@ -191,7 +191,7 @@ def opcion_registrar (menu_registrar):
                 print ("No hay maquinas registradas")
                 break
             print ("Maquinas disponibles: ")
-            for i in range(len(sistema._maquinas)) == 0:
+            for i in range(len(sistema._maquinas)):
                 maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
                 print (i, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
             indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
@@ -207,7 +207,7 @@ def opcion_registrar (menu_registrar):
                 if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
                     pedido_hecho = pedido
             print ("Estado del pedido: ")
-            if pedido is not None:
+            if pedido_hecho is not None:
                 if pedido_hecho.estado == "entregado":
                     print ("entregado")
                 else:
@@ -222,7 +222,7 @@ def opcion_registrar (menu_registrar):
             codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer"))
             pieza_encontrada = None
             for pieza in sistema._piezas:
-                if pieza.codigo == codigo:
+                if pieza.codigo == codigo_pieza_a_reponer:
                     pieza_encontrada = pieza
                     break
                     
@@ -237,6 +237,7 @@ def opcion_registrar (menu_registrar):
 #SAlIR DE REGISTRAR
         elif objetoAregistrar == 6:
             print ("Se vuelve al menu principal")
+            break
             
         else:
             objetoAregistrar = int(input("Ingrese un numero del 1 al 6"))
