@@ -5,7 +5,7 @@ class Reposicion:
     def __init__(self,pieza,cantidad_lotes):
         self._pieza=pieza
         self._cantidad_lotes=cantidad_lotes
-        self.fecha=self.obtener_fecha_actual()
+        self._fecha=self.obtener_fecha_actual()
         self._pieza.reponer(cantidad_lotes)
 
     @property
@@ -19,6 +19,10 @@ class Reposicion:
     @property
     def fecha(self):
         return self._fecha
+    
+    @fecha.setter
+    def fecha(self,nueva_fecha):
+        self._fecha=nueva_fecha
 
     @property 
     def costo_total(self):

@@ -49,9 +49,9 @@ def opcion_registrar (menu_registrar):
     for linea in menu_registrar:
         print (linea[0])
     print ("-----------------")
+    objetoAregistrar = int(input("Ingrese una opcion: "))
     while True:
-        objetoAregistrar = int(input("Ingrese una opcion: "))
-
+      
 #REGISTRAR UNA PIEZA 
         if objetoAregistrar == 1:
             print ("Se va a registrar una nueva pieza")
@@ -69,13 +69,12 @@ def opcion_registrar (menu_registrar):
                 except ValueError as ve:
                     print(ve)
             
-            costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza"))
-            unidades_en_lote= int(input("ingrese la cantidad de lotes de la pieza"))
-            cantidad_disponible= int(input("Ingrese la cantidad"))
+            costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza: "))
+            unidades_en_lote= int(input("ingrese la cantidad de lotes de la pieza: "))
+            cantidad_disponible= int(input("Ingrese la cantidad: "))
             sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
-
+            break
         
-
 #REGISTRAR UNA MAQUINA
         elif objetoAregistrar == 2:
             print ("Se va a registrar una nueva maquina")
@@ -85,31 +84,42 @@ def opcion_registrar (menu_registrar):
             if len (piezas_disponibles)==0:
                 print("No hay piezas disponibles")
             else: 
-                continuar="si"
+                continuar = "si"
                 while continuar=="si":
+                    print ("Piezas disponibles: ")
                     for pieza in piezas_disponibles:
-                        print(f"{pieza.codigo}: {pieza.descripcion}")
-                        cantidad=int(input("que cantidad de esa pieza necesitás"))
-                        codigo=int(input("ingrese un codigo para su pieza"))
-                    
-                        pieza_seleccionada=None
-                        for p in piezas_disponibles:
-                            if p.codigo==codigo:
-                                pieza_seleccionada=p
-                                break
-                        
-                            if pieza_seleccionada:
-                                req=Requerimiento(pieza_seleccionada,cantidad)
-                                requerimientos.append(req)
-                                continuar=input("deseas agregar otra pieza (si/no)")
-                            else:
-                                print("Codigo no valido")
-                        
-                            nueva_maquina=Maquina(descripcion)
-                            for req in requerimientos:
-                                nueva_maquina.agregar_requerimiento(req)
+                        print (pieza.codigo, "-", pieza.descripcion)
+                    codigo=int(input("ingrese el codigo de la pieza que necesita"))
+                    pieza_seleccionada = None
 
-                            sistema.registro_maquina(nueva_maquina)
+                    for pieza in piezas_disponibles:
+                        if pieza.codigo == codigo:
+                            pieza_seleccionada = pieza
+                            break
+                    while pieza_seleccionada is None:
+                            print ("no se encontro una pieza con ese codigo")
+                            codigo = int(input("Ingrese un codigo valido"))
+                            for pieza in piezas_disponibles:
+                                if pieza.codigo == codigo:
+                                    pieza_seleccionada = pieza
+                                    break
+
+                    if pieza_seleccionada is not None:
+                            print (pieza)
+                            cantidad=int(input("que cantidad de esa pieza necesitás"))
+                            req=Requerimiento(pieza_seleccionada,cantidad)
+                            requerimientos.append(req)
+                    continuar=input("deseas agregar otra pieza (si/no)")
+                
+                                
+                        
+                nueva_maquina=Maquina(descripcion)
+                for req in requerimientos:
+                    nueva_maquina.agregar_requerimiento(req)
+
+                sistema.registro_maquina(nueva_maquina)
+                print ("Se ha registrado correctamente la maquina")
+                break
 
 # REGISTRAR UN CLIENTE
         elif objetoAregistrar ==3:
@@ -156,18 +166,20 @@ def opcion_registrar (menu_registrar):
 #REGISTRAR UNA REPOSICION
         elif objetoAregistrar == 5:
             print ("Piezas disponibles:")
-            for piezas in sistema._piezas:
+            for pieza in sistema._piezas:
                 print (pieza.codigo, "-", pieza.descripcion)
-            pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer"))
+            codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer"))
             pieza_encontrada = None
             for pieza in sistema._piezas:
                 if pieza.codigo == codigo:
                     pieza_encontrada = pieza
                     break
+                    
             if pieza_encontrada is not None:
                 cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer:"))
                 sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
                 print ("Reposicion registrada correctamenrte")
+                break
             else:
                 print ("No se encontró ninguna pieza con ese codigo")
 

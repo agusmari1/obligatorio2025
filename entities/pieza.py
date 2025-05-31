@@ -53,3 +53,7 @@ class Pieza:
         print("Costo:", self._costo_adquisicion)
         print("Cantidad disponible:", self._cantidad_disponible)
         print("Unidades por lote:", self._unidades_en_lote)  
+
+    def __str__(self):
+        return f"{self.codigo}-{self.descripcion}"
+ 
