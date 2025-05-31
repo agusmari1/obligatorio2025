@@ -125,29 +125,40 @@ def opcion_registrar (menu_registrar):
         elif objetoAregistrar ==3:
             print ("Se va a registrar un cliente")
             tipo_cliente=input("cliente particular o Empresa")
-            nombre=input("seleccione el nombre")
-            telefono=input("seleccione el telefono")
-            correo_electrónico=input("indique el correo electrónico")
+            
             if tipo_cliente=="particular":
                 while True:
+                    nombre=input("seleccione el nombre")
+                    cedula=input("ingrese la cedula")
+                    telefono=input("seleccione el telefono")
+                    correo_electrónico=input("indique el correo electrónico")
                     try:
-                        cedula=input("ingrese la cedula")
-                        for cliente in sistema._cliente:
-                            if isinstance(cliente,ClienteParticular)==True and cliente.cedula==cedula:
-                                raise ClienteRepetido
+                        for cliente in sistema._clientes:
+                            if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
+                                raise ClienteRepetido()
                         break
                     except ClienteRepetido as e:
                         print (e)
+                        
+                    
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
                 sistema.registro_clientes(nuevo_cliente)
+                break
 
-            else:
+
+            elif tipo_cliente=="Empresa":
+
                 while True:
+                    nombre=input("seleccione el nombre")
+                    telefono=input("seleccione el telefono")
+                    correo_electrónico=input("indique el correo electrónico")
+                    RUT=input("ingrese el rut")
+
                     try:
-                        RUT=input("ingrese el rut")
+                        
                         for cliente in sistema._clientes:
-                            if isinstance(cliente,Empresa):
+                            if isinstance(cliente,Empresa) and cliente.RUT==RUT:
                                 raise ClienteRepetido()
                         break
                     
@@ -156,7 +167,13 @@ def opcion_registrar (menu_registrar):
                 pagina_web=input("ingrese la pagina web")
                 nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
                 sistema.registro_clientes(nuevo_cliente)
-       
+                break
+
+            else:
+                print("Ese tipo de cliente no existe")
+                break
+
+            #se registra el cliente pero no entiemdo porque cuando pongo la cedula repetida o algo repetido me aparece error ya me fije mil veces y no encuentro el error , tengo que preguntar, pero el resto anda impecable
 
 # REGISTRAR UN PEDIDO
         elif objetoAregistrar == 4:
