@@ -1,3 +1,3 @@
 class PiezaRepetida(Exception):
     def __init__(self):
-        return "la pieza ya existe"
+        super().__init__("la pieza ya existe")
