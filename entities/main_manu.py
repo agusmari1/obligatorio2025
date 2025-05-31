@@ -161,7 +161,41 @@ def opcion_registrar (menu_registrar):
 # REGISTRAR UN PEDIDO
         elif objetoAregistrar == 4:
             print ("Se va a registrar un pedido")
-            sistema.registro_pedido(nuevo_cliente,Maquina)
+            if len(sistema._clientes) == 0: #Si no hay clientes, no puede haber pedido
+                print("No hay clientes registrados")
+                break
+            print("Clientes dispomibles: ")
+            for i in range (len(sistema._clientes)):
+                cliente = sistema._clientes [i]
+                print (i, " - ", cliente.nombre, "-", cliente.tipo_cliente())
+            indice_cliente = int(input("seleccione el numero de cliente que realiza el pedido: "))
+            cliente_seleccionado = sistema._clientes [indice_cliente]
+            if len(sistema._maquinas) == 0:
+                print ("No hay maquinas registradas")
+                break
+            print ("Maquinas disponibles: ")
+            for i in range(len(sistema._maquinas)) == 0:
+                maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
+                print (i, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
+            indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
+            maquina_seleccionada = sistema._maquinas [indice_maquina]
+            sistema.registro_pedido(cliente_seleccionado, maquina_seleccionada)
+            # se acaba de registar un pedido
+            #ahora lo que se va a hacer es buscar ese pedido registrado para ver si queda pendiente o no
+            pedido_hecho = None
+            for pedido in sistema._pedidos_entregados:
+                if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
+                    pedido_hecho = pedido
+            for pedido in sistema._pedidos_pendientes:
+                if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
+                    pedido_hecho = pedido
+            print ("Estado del pedido: ")
+            if pedido is not None:
+                if pedido_hecho.estado == "entregado":
+                    print ("entregado")
+                else:
+                    print ("El estado del pedido quedo pendiente por falta de stock")
+
 
 #REGISTRAR UNA REPOSICION
         elif objetoAregistrar == 5:
