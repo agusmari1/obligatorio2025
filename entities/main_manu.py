@@ -71,7 +71,7 @@ def opcion_registrar (menu_registrar):
             
             costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza: "))
             unidades_en_lote= int(input("ingrese la cantidad de lotes de la pieza: "))
-            cantidad_disponible= int(input("Ingrese la cantidad: "))
+            cantidad_disponible= int(input("Ingrese la cantidad por lote: "))
             sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
             break
         
@@ -127,20 +127,24 @@ def opcion_registrar (menu_registrar):
             tipo_cliente=input("Cliente particular o Empresa: ")
             
             if tipo_cliente=="particular":
+
+                nombre=input("Seleccione el nombre: ")
+
                 while True:
-                    nombre=input("Seleccione el nombre: ")
+
                     cedula=input("Ingrese la cedula: ")
-                    telefono=input("Seleccione el telefono: ")
-                    correo_electrónico=input("Indique el correo electrónico: ")
+
                     try:
                         for cliente in sistema._clientes:
                             if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
-                                raise ClienteRepetido()
+                                raise ClienteRepetido("Ya existe un cliente con esa cedula")
                         break
                     except ClienteRepetido as e:
                         print (e)
-                        print ("Vuelve a registrar al cliente")
-                    
+                        print ("Vuelve a registrar la cedula")
+
+                telefono=input("Seleccione el telefono: ")
+                correo_electrónico=input("Indique el correo electrónico: ")
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
                 sistema.registro_clientes(nuevo_cliente)
@@ -148,15 +152,12 @@ def opcion_registrar (menu_registrar):
 
 
             elif tipo_cliente=="Empresa":
-
+                nombre=input("Seleccione el nombre: ")
+                telefono=input("Seleccione el telefono: ")
+                correo_electrónico=input("Indique el correo electrónico: ")
                 while True:
-                    nombre=input("Seleccione el nombre: ")
-                    telefono=input("Seleccione el telefono: ")
-                    correo_electrónico=input("Indique el correo electrónico: ")
-                    RUT=input("Ingrese el rut: ")
-
+                    RUT =input("Ingrese el rut: ")
                     try:
-                        
                         for cliente in sistema._clientes:
                             if isinstance(cliente,Empresa) and cliente.RUT==RUT:
                                 raise ClienteRepetido()
@@ -164,38 +165,40 @@ def opcion_registrar (menu_registrar):
                     
                     except ClienteRepetido as e:
                         print (e)
+
                 pagina_web=input("Ingrese la pagina web: ")
-                nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT,pagina_web)
+                nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT ,pagina_web)
                 sistema.registro_clientes(nuevo_cliente)
                 break
 
             else:
                 print("Ese tipo de cliente no existe")
+                print ("----------------------------")
                 break
-
-            #se registra el cliente pero no entiemdo porque cuando pongo la cedula repetida o algo repetido me aparece error ya me fije mil veces y no encuentro el error , tengo que preguntar, pero el resto anda impecable
 
 # REGISTRAR UN PEDIDO
         elif objetoAregistrar == 4:
             print ("Se va a registrar un pedido")
             if len(sistema._clientes) == 0: #Si no hay clientes, no puede haber pedido
                 print("No hay clientes registrados")
+                print("---------------------------")
                 break
             print("Clientes dispomibles: ")
             for i in range (len(sistema._clientes)):
                 cliente = sistema._clientes [i]
-                print (i, " - ", cliente.nombre, "-", cliente.tipo_cliente())
-            indice_cliente = int(input("seleccione el numero de cliente que realiza el pedido: "))
-            cliente_seleccionado = sistema._clientes [indice_cliente]
+                print (i + 1, " - ", cliente.nombre, "-", cliente.tipo_cliente())
+            indice_cliente = int(input("Seleccione el numero de cliente que realiza el pedido: "))
+            cliente_seleccionado = sistema._clientes [(indice_cliente -1)]
             if len(sistema._maquinas) == 0:
                 print ("No hay maquinas registradas")
+                print ("---------------------------")
                 break
             print ("Maquinas disponibles: ")
             for i in range(len(sistema._maquinas)):
                 maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
-                print (i, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
+                print (i + 1, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
             indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
-            maquina_seleccionada = sistema._maquinas [indice_maquina]
+            maquina_seleccionada = sistema._maquinas [(indice_maquina -1)]
             sistema.registro_pedido(cliente_seleccionado, maquina_seleccionada)
             # se acaba de registar un pedido
             #ahora lo que se va a hacer es buscar ese pedido registrado para ver si queda pendiente o no
@@ -212,8 +215,10 @@ def opcion_registrar (menu_registrar):
             if pedido_hecho is not None:
                 if pedido_hecho.estado == "entregado":
                     print ("entregado")
+                    print ("-------------------")
                 else:
                     print ("El estado del pedido quedo pendiente por falta de stock")
+                    print ("------------------------------------------------------")
             break
 
 
@@ -222,7 +227,7 @@ def opcion_registrar (menu_registrar):
             print ("Piezas disponibles:")
             for pieza in sistema._piezas:
                 print (pieza.codigo, "-", pieza.descripcion)
-            codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer"))
+            codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer: "))
             pieza_encontrada = None
             for pieza in sistema._piezas:
                 if pieza.codigo == codigo_pieza_a_reponer:
@@ -230,16 +235,19 @@ def opcion_registrar (menu_registrar):
                     break
                     
             if pieza_encontrada is not None:
-                cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer:"))
+                cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer: "))
                 sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
                 print ("Reposicion registrada correctamenrte")
+                print ("--------------------------------------")
                 break
             else:
                 print ("No se encontró ninguna pieza con ese codigo")
+                print ("-------------------------------------------")
 
 #SAlIR DE REGISTRAR
         elif objetoAregistrar == 6:
             print ("Se vuelve al menu principal")
+            print ("-----------------------------")
             break
             
         else:
@@ -251,7 +259,7 @@ def opcion_registrar (menu_registrar):
 def opcion_listar (menu_listar):
     for linea in menu_listar:
         print (linea[0])
-    print ("----------------")
+    print ("-----------------------")
     objetoAListar = int(input("INgrese la opcion que desea listar"))
     if objetoAListar == 1:
         listaclientes = sistema.mostrar_clientes
@@ -282,8 +290,8 @@ while True:
             break
     else:
         print("El valor ingresado no es valido")
-        opcion1_2_3 = int(input("Ingrese los valores1,2 o 3: "))
-
+        print ("Se debe ingresar 1, 2 o 3")
+        print ("-------------------------------")
 
       
 

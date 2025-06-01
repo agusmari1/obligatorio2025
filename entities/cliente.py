@@ -48,7 +48,7 @@ class ClienteParticular(Cliente):
 class Empresa(Cliente):
     def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
         super().__init__(nombre,telefono,correo_electrónico)
-        self.RUT=RUT
+        self._RUT=RUT
         self._pagina_web=pagina_web
     
     def tipo_cliente(self):
@@ -56,7 +56,7 @@ class Empresa(Cliente):
 
     @property
     def RUT(self):
-        return self.RUT
+        return self._RUT
     
     @property
     def pagina_web(self):
