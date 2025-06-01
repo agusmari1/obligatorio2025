@@ -26,11 +26,15 @@ class Cliente(ABC):
 class ClienteParticular(Cliente):
         def __init__(self,nombre,telefono,correo_electrónico,cedula):
             super().__init__(nombre,telefono,correo_electrónico)
-            self.cedula=cedula
+            self._cedula=cedula
 
         @property
         def cedula(self):
-            return self.cedula
+            return self._cedula
+        
+        @cedula.setter
+        def cedula(self, nueva_cedula):
+            self._cedula = nueva_cedula
         
         def tipo_cliente(self):
               return "cliente particular"

@@ -15,9 +15,13 @@ class Pedido:
         if self._puede_entregarse():
             self._estado="entregado"
             self._fecha_entrega=self._fecha_recepcion
-            self.actualizar_stock()
+            self.actualizar_stock ()
         else:
             self._estado="pendiente"
+            
+    def actualizar_stock(self):
+            for req in self._maquina.requerimientos:
+                req.pieza.cantidad_disponible -= req.cantidad
         
     def calcular_precio(self):
 

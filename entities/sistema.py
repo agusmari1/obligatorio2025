@@ -29,8 +29,8 @@ class Sistema:
         pieza = Pieza(descripcion,costo_adquisicion,unidades_en_lote,cantidad_disponible)
         self._piezas.append(pieza)
     
-    def registro_maquina(self, descripcion,requerimientos):
-        self._maquinas.append(descripcion,requerimientos)
+    def registro_maquina(self, maquina):
+        self._maquinas.append(maquina)
 
     def registro_reposicion(self,pieza, cantidad_lotes):
         reposicion = Reposicion(pieza, cantidad_lotes)

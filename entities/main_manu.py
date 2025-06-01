@@ -48,7 +48,7 @@ def opcion_NOvalida (opcion1_2_3):
 def opcion_registrar (menu_registrar):
     for linea in menu_registrar:
         print (linea[0])
-    print ("-----------------")
+    print ("----------------------------")
     objetoAregistrar = int(input("Ingrese una opcion: "))
     while True:
       
@@ -139,7 +139,7 @@ def opcion_registrar (menu_registrar):
                         break
                     except ClienteRepetido as e:
                         print (e)
-                        
+                        print ("Vuelve a registrar al cliente")
                     
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
@@ -203,15 +203,18 @@ def opcion_registrar (menu_registrar):
             for pedido in sistema._pedidos_entregados:
                 if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
                     pedido_hecho = pedido
+                    break
             for pedido in sistema._pedidos_pendientes:
                 if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
                     pedido_hecho = pedido
+                    break
             print ("Estado del pedido: ")
             if pedido_hecho is not None:
                 if pedido_hecho.estado == "entregado":
                     print ("entregado")
                 else:
                     print ("El estado del pedido quedo pendiente por falta de stock")
+            break
 
 
 #REGISTRAR UNA REPOSICION
