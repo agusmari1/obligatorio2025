@@ -46,12 +46,12 @@ def opcion_NOvalida (opcion1_2_3):
 
 #OPCION REGISTRAR ALGO
 def opcion_registrar (menu_registrar):
-    for linea in menu_registrar:
-        print (linea[0])
-    print ("----------------------------")
-    objetoAregistrar = int(input("Ingrese una opcion: "))
     while True:
-      
+        for linea in menu_registrar:
+            print (linea[0])
+        print ("----------------------------")
+        objetoAregistrar = int(input("Ingrese una opcion: "))
+   
 #REGISTRAR UNA PIEZA 
         if objetoAregistrar == 1:
             print ("Se va a registrar una nueva pieza")
@@ -73,7 +73,7 @@ def opcion_registrar (menu_registrar):
             unidades_en_lote= int(input("ingrese la cantidad de lotes de la pieza: "))
             cantidad_disponible= int(input("Ingrese la cantidad por lote: "))
             sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
-            break
+            
         
 #REGISTRAR UNA MAQUINA
         elif objetoAregistrar == 2:
@@ -83,6 +83,7 @@ def opcion_registrar (menu_registrar):
             piezas_disponibles=sistema.obtener_piezas()
             if len (piezas_disponibles)==0:
                 print("No hay piezas disponibles")
+                print ("------------------------")
             else: 
                 continuar = "si"
                 while continuar=="si":
@@ -109,6 +110,7 @@ def opcion_registrar (menu_registrar):
                             cantidad=int(input("Que cantidad de esa pieza necesitás: "))
                             req=Requerimiento(pieza_seleccionada,cantidad)
                             requerimientos.append(req)
+                            piezas_disponibles.remove(pieza_seleccionada)
                     continuar=input("Deseas agregar otra pieza (si/no): ")
                 
                                 
@@ -119,14 +121,18 @@ def opcion_registrar (menu_registrar):
 
                 sistema.registro_maquina(nueva_maquina)
                 print ("Se ha registrado correctamente la maquina")
-                break
+                print ("----------------------------------------")
+                
 
 # REGISTRAR UN CLIENTE
         elif objetoAregistrar ==3:
             print ("Se va a registrar un cliente")
-            tipo_cliente=input("Cliente particular o Empresa: ")
+            print ("Tipo de cliente:")
+            print ("            1. Cliente Particular")
+            print ("            2. Empresa")
+            tipo_cliente= int(input("Seleccione la opcion 1 o 2: "))
             
-            if tipo_cliente=="particular":
+            if tipo_cliente== 1:
 
                 nombre=input("Seleccione el nombre: ")
 
@@ -148,10 +154,12 @@ def opcion_registrar (menu_registrar):
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
                 sistema.registro_clientes(nuevo_cliente)
-                break
+                print ("Se ha registrado el cliente")
+                print ("---------------------------")
+                
 
 
-            elif tipo_cliente=="Empresa":
+            elif tipo_cliente==2:
                 nombre=input("Seleccione el nombre: ")
                 telefono=input("Seleccione el telefono: ")
                 correo_electrónico=input("Indique el correo electrónico: ")
@@ -169,12 +177,14 @@ def opcion_registrar (menu_registrar):
                 pagina_web=input("Ingrese la pagina web: ")
                 nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT ,pagina_web)
                 sistema.registro_clientes(nuevo_cliente)
-                break
+                print ("Se ha registrado la empresa")
+                print ("---------------------------")
+                
 
             else:
                 print("Ese tipo de cliente no existe")
                 print ("----------------------------")
-                break
+                
 
 # REGISTRAR UN PEDIDO
         elif objetoAregistrar == 4:
@@ -182,51 +192,51 @@ def opcion_registrar (menu_registrar):
             if len(sistema._clientes) == 0: #Si no hay clientes, no puede haber pedido
                 print("No hay clientes registrados")
                 print("---------------------------")
-                break
-            print("Clientes dispomibles: ")
-            for i in range (len(sistema._clientes)):
-                cliente = sistema._clientes [i]
-                print (i + 1, " - ", cliente.nombre, "-", cliente.tipo_cliente())
-            indice_cliente = int(input("Seleccione el numero de cliente que realiza el pedido: "))
-            cliente_seleccionado = sistema._clientes [(indice_cliente -1)]
-            if len(sistema._maquinas) == 0:
-                print ("No hay maquinas registradas")
-                print ("---------------------------")
-                break
-            print ("Maquinas disponibles: ")
-            for i in range(len(sistema._maquinas)):
-                maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
-                print (i + 1, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
-            indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
-            maquina_seleccionada = sistema._maquinas [(indice_maquina -1)]
-            sistema.registro_pedido(cliente_seleccionado, maquina_seleccionada)
+            else:
+                print("Clientes dispomibles: ")
+                for i in range (len(sistema._clientes)):
+                    cliente = sistema._clientes [i]
+                    print (i + 1, " - ", cliente.nombre, "-", cliente.tipo_cliente())
+                indice_cliente = int(input("Seleccione el numero de cliente que realiza el pedido: "))
+                cliente_seleccionado = sistema._clientes [(indice_cliente -1)]
+                if len(sistema._maquinas) == 0:
+                    print ("No hay maquinas registradas")
+                    print ("---------------------------")
+                else:
+                    print ("Maquinas disponibles: ")
+                    for i in range(len(sistema._maquinas)):
+                        maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
+                        print (i + 1, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
+                    indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
+                    maquina_seleccionada = sistema._maquinas [(indice_maquina -1)]
+                    sistema.registro_pedido(cliente_seleccionado, maquina_seleccionada)
             # se acaba de registar un pedido
             #ahora lo que se va a hacer es buscar ese pedido registrado para ver si queda pendiente o no
-            pedido_hecho = None
-            for pedido in sistema._pedidos_entregados:
-                if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
-                    pedido_hecho = pedido
-                    break
-            for pedido in sistema._pedidos_pendientes:
-                if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
-                    pedido_hecho = pedido
-                    break
-            print ("Estado del pedido: ")
-            if pedido_hecho is not None:
-                if pedido_hecho.estado == "entregado":
-                    print ("entregado")
-                    print ("-------------------")
-                else:
-                    print ("El estado del pedido quedo pendiente por falta de stock")
-                    print ("------------------------------------------------------")
-            break
+                    pedido_hecho = None
+                    for pedido in sistema._pedidos_entregados:
+                        if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
+                            pedido_hecho = pedido
+                            break
+                    for pedido in sistema._pedidos_pendientes:
+                        if pedido._cliente == cliente_seleccionado and pedido._maquina == maquina_seleccionada:
+                            pedido_hecho = pedido
+                            break
+                    print ("Estado del pedido: ")
+                    if pedido_hecho is not None:
+                        if pedido_hecho.estado == "entregado":
+                            print ("Fue entregado correctamente")
+                            print ("-------------------")
+                        else:
+                            print ("El estado del pedido quedo pendiente por falta de stock")
+                            print ("------------------------------------------------------")
+            
 
 
 #REGISTRAR UNA REPOSICION
         elif objetoAregistrar == 5:
             print ("Piezas disponibles:")
             for pieza in sistema._piezas:
-                print (pieza.codigo, "-", pieza.descripcion)
+                print (pieza.codigo, "-", pieza.descripcion , " - cantidad por lote - ", pieza.unidade_en_lote)
             codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer: "))
             pieza_encontrada = None
             for pieza in sistema._piezas:
@@ -237,9 +247,12 @@ def opcion_registrar (menu_registrar):
             if pieza_encontrada is not None:
                 cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer: "))
                 sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
+                costo_reposicion = cantidad_lotes*pieza_encontrada.unidades_en_lote*pieza_encontrada.costo_adquisicion
                 print ("Reposicion registrada correctamenrte")
-                print ("--------------------------------------")
-                break
+                print ("Costo de la reposic[on: ", costo_reposicion)
+                print ("Actualizacion de stock de la pieza: ", pieza_encontrada.cantidad_disponible)
+                print ("-------------------------------------------")
+                
             else:
                 print ("No se encontró ninguna pieza con ese codigo")
                 print ("-------------------------------------------")
