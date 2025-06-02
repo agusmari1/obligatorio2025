@@ -87,3 +87,29 @@ class Sistema:
         for maquina in self._maquinas:
             maquina.mostrar_datos()
             print("----------")
+
+    def pedido_listar_demanda_piezas(self):
+        for pieza in self._piezas:
+            total_necesario=0
+            for pedido in self._pedidos:
+                if pedido.estado=="pendiente":
+                    for req in pedido.requerimientos:
+                        if req.pieza==pieza:
+                            total_necesario+=req.cantidad
+
+            faltan=total_necesario-pieza.cantidad_disponible
+            if faltan<0:
+                faltan=0
+            if faltan>0:
+                lotes=faltan/pieza.unidades_en_lote
+                if faltan%pieza.unidades_en_lote!=0:
+                    lote+=1
+                else:
+                    lote=0
+                    
+        print("Pieza:", pieza.descripcion)
+        print("Disponible:", pieza.cantidad_disponible)
+        print("Lote:", pieza.unidades_en_lote)
+        print("Faltan:", faltan)
+        print("Lotes a comprar:", lotes)
+        print("--------------")

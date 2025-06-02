@@ -329,7 +329,10 @@ def opcion_listar (menu_listar):
         if objetoAListar ==3:
             pass
         if objetoAListar== 4:
-            pass
+            lista_objetos= sistema.mostrar_piezas()
+            print(lista_objetos)
+
+       
         if objetoAListar == 5:
             pass
 

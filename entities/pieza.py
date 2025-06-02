@@ -47,12 +47,34 @@ class Pieza:
 
     #metodo de impresion
 
+   
+    def pedido_listar_demanda_piezas(self):
+        for pieza in self._piezas:
+            total_necesario=0
+            for pedido in self._pedido:
+                if pedido.estado=="pendiente":
+                    for req in pedido.requerimientos:
+                        if req.pieza==pieza:
+                            total_necesario+=req.cantidad
+
+        faltan=total_necesario-pieza.cantidad_disponible
+        if faltan<0:
+            faltan=0
+        if faltan>0:
+            lotes=faltan/pieza.unidades_en_lote
+            if faltan%pieza.unidades_en_lote!=0:
+                lote+=1
+            else:
+                lote=0
+
     def mostrar_datos(self):
-        print("Código:", self._codigo)
-        print("Descripción:", self._descripcion)
-        print("Costo:", self._costo_adquisicion)
-        print("Cantidad disponible:", self._cantidad_disponible)
-        print("Unidades por lote:", self._unidades_en_lote)  
+    "Código:", self._codigo)
+            print("Descripción:", self._descripcion)
+            print("Costo:", self._costo_adquisicion)
+            print("Cantidad disponible:", self._cantidad_disponible)
+            print("Unidades por lote:", self._unidades_en_lote)  
+           print("Faltan:",faltan)
+
 
     def __str__(self):
         return f"{self.codigo}-{self.descripcion}"
