@@ -80,7 +80,10 @@ def opcion_registrar (menu_registrar):
             print ("Se va a registrar una nueva maquina")
             descripcion = input("Ingrese la descripcion de la maquina: ")
             requerimientos=[]
-            piezas_disponibles=sistema.obtener_piezas()
+            piezas_originales =sistema.obtener_piezas()
+            piezas_disponibles = []
+            for pieza in piezas_originales:
+                piezas_disponibles.append(pieza)
             if len (piezas_disponibles)==0:
                 print("No hay piezas disponibles")
                 print ("------------------------")
@@ -88,7 +91,7 @@ def opcion_registrar (menu_registrar):
                 continuar = "si"
                 while continuar=="si":
                     print ("Piezas disponibles: ")
-                    for pieza in piezas_disponibles:
+                    for pieza in piezas_originales:
                         print (pieza.codigo, "-", pieza.descripcion)
                     codigo=int(input("Ingrese el codigo de la pieza que necesita: "))
                     pieza_seleccionada = None
