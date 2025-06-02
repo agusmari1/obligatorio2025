@@ -12,3 +12,5 @@ class Requerimiento:
     @property
     def cantidad(self):
         return self._cantidad
+    hola
+    
