@@ -47,7 +47,8 @@ class Sistema:
                 self._pedidos_pendientes.remove(pedido)
 
     def mostrar_pedidos_entregados(self):
-        print("Pedidos entregados")
+        print("Pedidos entregados:")
+        print ("                   ")
         if len(self._pedidos_entregados)==0:
             print("No hay pedidos entregados")
         else:
