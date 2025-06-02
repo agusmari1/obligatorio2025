@@ -39,12 +39,16 @@ class ClienteParticular(Cliente):
         def tipo_cliente(self):
               return "cliente particular"
         
-        def mostrar_datos(self):
-            print("Nombre:",self._nombre)
-            print("Telefono:",self._telefono)
-            print("Correo:",self._correo_electronico)
-            print("Cedula:",self._cedula)
+        #def mostrar_datos(self):
+        #    mostrar_cliente_particular=[]
+        #    mostrar_cliente_particular.append(self._nombre)
+         #   mostrar_cliente_particular.append(self._telefono)
+         #   mostrar_cliente_particular.append(self._correo_electronico)
+          #  mostrar_cliente_particular.append(self._cedula)
 
+        def mostrar_datos_particulares(self):
+         return [self._nombre, self._telefono, self._correo_electronico, self._cedula]   
+  
 class Empresa(Cliente):
     def __init__(self,nombre,telefono,correo_electrónico,RUT,pagina_web):
         super().__init__(nombre,telefono,correo_electrónico)
@@ -62,13 +66,19 @@ class Empresa(Cliente):
     def pagina_web(self):
         return self._pagina_web
     
-    def mostrar_datos(self):
-            print("Nombre:",self._nombre)
-            print("Telefono:",self._telefono)
-            print("Correo:",self._correo_electronico)
-            print("RUT:",self._RUT)
-            print("Pagina Web:",self._pagina_web)
-  
+    #def mostrar_datos_empresa(self):
+      #  self._mostrar_cliente_Empresa=[]
+      #  self._mostrar_cliente_Empresa.append(self._nombre)
+       # self._mostrar_cliente_Empresa.append(self._telefono)
+       # self._mostrar_cliente_Empresa.append(self._correo_electronico)
+       # self._mostrar_cliente_Empresa.append(self._RUT)
+       # self._mostrar_cliente_Empresa.append(self._pagina_web)
+        
+    def mostrar_datos_empresa(self):    
+        return [self._nombre, self._telefono, self._correo_electronico, self._RUT, self._pagina_web]
+
+
+
 
 
     def _puede_entregarse(self):
@@ -77,12 +87,16 @@ class Empresa(Cliente):
                 return False
         return True
 
-    def mostrar_datos(self):
-    
-        print("Cliente:", self._cliente.nombre)
-        print("Tipo:", self._cliente.tipo_cliente())
-        print("Máquina:", self._maquina.descripcion)
-        print("Estado:", self._estado)
-        print("Fecha recepción:", self._fecha_recepcion)
-        print("Fecha entrega:", self._fecha_entrega)
-        print("Precio final: $", self._precio_final)
+    def mostrar_datos_particulares(self):
+        self._mostrar_clientes_particulares=[]
+        self._mostrar_clientes_particulares.append(self._cliente.tipo_cliente())
+        self._mostrar_clientes_particulares.append(self._cliente.nombre)
+        self._mostrar_clientes_particulares.append(self._maquina.descripcion)
+        self._mostrar_clientes_particulares.append(self._estado)
+        self._mostrar_clientes_particulares.append(self._fecha_recepcion)
+        self._mostrar_clientes_particulares.append(self._fecha_recepcion)
+        self._mostrar_clientes_particulares.append(self._fecha_entrega)
+        self._mostrar_clientes_particulares.append(self._precio_final)
+        
+
+   
