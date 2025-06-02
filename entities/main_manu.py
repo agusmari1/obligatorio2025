@@ -335,6 +335,8 @@ def opcion_listar (menu_listar):
        
         if objetoAListar == 5:
             pass
+        if objetoAListar == 6:
+            break
 
 
 
