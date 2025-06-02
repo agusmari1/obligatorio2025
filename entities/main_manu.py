@@ -265,9 +265,9 @@ def opcion_registrar (menu_registrar):
             print ("Se vuelve al menu principal")
             print ("-----------------------------")
             break
-            
+#OPCION NO VALIDA       
         else:
-            objetoAregistrar = int(input("Ingrese un numero del 1 al 6"))
+            print (("Ingrese un numero del 1 al 6"))
         
 
         
