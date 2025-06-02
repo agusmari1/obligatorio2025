@@ -284,23 +284,34 @@ def opcion_registrar (menu_registrar):
         
     
 def opcion_listar (menu_listar):
-    for linea in menu_listar:
-        print (linea[0])
-    print ("-----------------------")
-    objetoAListar = int(input("Ingrese la opcion que desea listar"))
+    while True:
+        for linea in menu_listar:
+            print (linea[0])
+        print ("-----------------------")
+        objetoAListar = int(input("Ingrese la opcion que desea listar"))
 
-    if objetoAListar == 1:
-        listaclientes = sistema.mostrar_clientes()
-        print(listaclientes)
+        if objetoAListar == 1:
+            listaclientes = sistema.mostrar_clientes()
+            print("Clientes Registrados: ")
+            print ("                       ")
+            print ("Nombre  | Telefono | Correo | Cedula/ RUT | Web | Tipo de Cliente")
+            for cliente in listaclientes:
+                if len (cliente) == 5:
+                    print (cliente[0], " | ", cliente [1]," | ", cliente[2], " | ", cliente [3], " | ", "  -  ", " | " , cliente [4])
+                elif len(cliente) == 6:
+                    print (cliente[0], " | ", cliente [1]," | ", cliente[2], " | ", cliente [3], " | ", cliente [4], " | " , cliente [5])
 
-    if objetoAListar == 2:
-        pass
-    if objetoAListar ==3:
-        pass
-    if objetoAListar== 4:
-        pass
-    if objetoAListar == 5:
-        pass
+            print ("-----------------------------------------------------------------------------------------------")
+
+
+        if objetoAListar == 2:
+            pass
+        if objetoAListar ==3:
+            pass
+        if objetoAListar== 4:
+            pass
+        if objetoAListar == 5:
+            pass
 
 
 

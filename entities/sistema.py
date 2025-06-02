@@ -71,11 +71,11 @@ class Sistema:
         clientes_todos=[]
         for cliente in self._clientes:
             if isinstance(cliente,ClienteParticular):
-                datos=cliente.mostrar_datos_particulares()
+                datos= [cliente._nombre, cliente._telefono, cliente._correo_electronico, cliente._cedula, "Cliente Particular"]
             elif isinstance(cliente,Empresa):
-               datos=cliente.mostrar_datos_empresa()
+               datos= [cliente._nombre, cliente._telefono, cliente._correo_electronico, cliente._RUT, cliente._pagina_web, "Empressa"]
             clientes_todos.append(datos)
-            print("----------") #polimorfismo se refiere a las dos de manera distinta
+            #polimorfismo se refiere a las dos de manera distinta
         return clientes_todos
     
     def mostrar_piezas(self):
