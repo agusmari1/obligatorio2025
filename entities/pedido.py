@@ -26,12 +26,14 @@ class Pedido:
     def calcular_precio(self):
 
         if self._cliente.tipo_cliente=="cliente particular":
-            precio=self._maquina.costo_produccion *1.5
+            precio= self._maquina.costo_produccion *1.5
+            self._precio_final=precio
         else:
-            precio=self._maquina.costo_produccion * 1.5
-            precio = precio * 0.8
+            precio_in=self._maquina.costo_produccion * 1.5
+            precio = precio_in * 0.8
+            self._precio_final=precio
 
-        return precio
+        return self._precio_final
 
 
 
