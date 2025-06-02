@@ -320,10 +320,12 @@ def opcion_listar (menu_listar):
                 if respuesta2==2:
                     lista_pedidos_entregados=sistema.mostrar_pedidos_entregados()
                     print(lista_pedidos_entregados)
-        elif respuesta==2:
-            print(lista_pedidos_pendientes)
-            print(lista_pedidos_entregados)
-            
+            elif respuesta==2:
+                lista_pedidos_pendientes = sistema.mostrar_pedidos_pendientes()
+                lista_pedidos_entregados = sistema.mostrar_pedidos_entregados()
+                print(lista_pedidos_pendientes)
+                print(lista_pedidos_entregados)
+
         if objetoAListar ==3:
             pass
         if objetoAListar== 4:
