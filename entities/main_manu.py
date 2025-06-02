@@ -305,7 +305,25 @@ def opcion_listar (menu_listar):
 
 
         if objetoAListar == 2:
-            pass
+       
+            print("Filtrar:")
+            print("1.Sí")
+            print("2.No")
+            respuesta=int(input("Elija una opción(1/2)"))
+            if respuesta==1:
+                print("1.Pendientes")
+                print("2.Entregados")
+                respuesta2=int(input("Elija una opción(1/2)"))
+                if respuesta2==1:
+                    lista_pedidos_pendientes=sistema.mostrar_pedidos_pendientes()
+                    print(lista_pedidos_pendientes)
+                if respuesta2==2:
+                    lista_pedidos_entregados=sistema.mostrar_pedidos_entregados()
+                    print(lista_pedidos_entregados)
+        elif respuesta==2:
+            print(lista_pedidos_pendientes)
+            print(lista_pedidos_entregados)
+            
         if objetoAListar ==3:
             pass
         if objetoAListar== 4:

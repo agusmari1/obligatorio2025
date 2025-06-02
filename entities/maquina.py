@@ -37,6 +37,7 @@ class Maquina:
             subtotal= pieza.costo_adquisicion*cantidad
             total+=subtotal
         self._costo_produccion=total
+           
 
     def actualizar_stock(self):
         for req in self._requerimientos:
