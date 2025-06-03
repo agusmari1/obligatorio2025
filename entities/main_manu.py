@@ -323,16 +323,15 @@ def opcion_listar (menu_listar):
             elif respuesta==2:
                 lista_pedidos_pendientes = sistema.mostrar_pedidos_pendientes()
                 lista_pedidos_entregados = sistema.mostrar_pedidos_entregados()
-                for pedido in lista_pedidos_entregados:
-                    print (pedido)
-                for pedido in lista_pedidos_pendientes:
-                    print (pedido)
+                print(lista_pedidos_pendientes)
+                print(lista_pedidos_entregados)
 
         if objetoAListar ==3:
-            pass
+            lista_maquinas=sistema.mostrar_maquina()
+            
         if objetoAListar== 4:
-            lista_objetos= sistema.mostrar_piezas()
-            print(lista_objetos)
+            lista_objetos= sistema.pedido_listar_demanda_piezas()
+
        
         if objetoAListar == 5:
             pass
