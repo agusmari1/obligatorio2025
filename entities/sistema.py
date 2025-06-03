@@ -94,7 +94,7 @@ class Sistema:
             total_necesario=0
             for pedido in self._pedidos:
                 if pedido.estado=="pendiente":
-                    for req in pedido.requerimientos:
+                    for req in self._requerimientos:
                         if req.pieza==pieza:
                             total_necesario+=req.cantidad
 
