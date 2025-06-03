@@ -5,6 +5,7 @@ from reposicion import Reposicion
 from requerimientos import Requerimiento
 from datetime import datetime
 from pieza import Pieza
+import math
 
 class Sistema:
     def __init__(self):
@@ -92,25 +93,49 @@ class Sistema:
     def pedido_listar_demanda_piezas(self):
         for pieza in self._piezas:
             total_necesario=0
-            for pedido in self._pedidos:
-                if pedido.estado=="pendiente":
-                    for req in self._requerimientos:
-                        if req.pieza==pieza:
-                            total_necesario+=req.cantidad
+            for pedido in self._pedidos_pendientes:
+                maquina=pedido.maquina
+                for req in maquina._requerimientos:
+                    if req.pieza==pieza:
+                        total_necesario+=req.cantidad
 
             faltan=total_necesario-pieza.cantidad_disponible
             if faltan<0:
                 faltan=0
+            lotes=0
             if faltan>0:
-                lotes=faltan/pieza.unidades_en_lote
-                if faltan%pieza.unidades_en_lote!=0:
-                    lote+=1
-                else:
-                    lote=0
+                lotes=math.ceil(faltan/pieza.unidades_en_lote)
+            
                     
-        print("Pieza:", pieza.descripcion)
-        print("Disponible:", pieza.cantidad_disponible)
-        print("Lote:", pieza.unidades_en_lote)
-        print("Faltan:", faltan)
-        print("Lotes a comprar:", lotes)
-        print("--------------")
+            print("Pieza:", pieza.descripcion)
+            print("Disponible:", pieza.cantidad_disponible)
+            print("Lote:", pieza.unidades_en_lote)
+            print("Faltan:", faltan)
+            print("Lotes a comprar:", lotes)
+            print("--------------")
+
+    def mostrar_maquina(self):
+        for maquina in self._maquinas:
+            puede_fabricarse=True
+            for req in maquina._requerimientos:
+                if req.cantidad > req.pieza.cantidad_disponible:
+                        puede_fabricarse = False
+                        break
+            print(f"Maquina:",maquina._descripcion)
+
+            if puede_fabricarse:
+                print("Maquina disponible a la venta")
+                   
+            else:
+                 print("Maquina no disponible para la venta")
+
+#hhh
+
+#hhh
+
+        
+
+                   
+
+
+

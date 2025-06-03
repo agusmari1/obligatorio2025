@@ -327,10 +327,10 @@ def opcion_listar (menu_listar):
                 print(lista_pedidos_entregados)
 
         if objetoAListar ==3:
-            pass
+            lista_maquinas=sistema.mostrar_maquina()
+            
         if objetoAListar== 4:
-            lista_objetos= sistema.mostrar_piezas()
-            print(lista_objetos)
+            lista_objetos= sistema.pedido_listar_demanda_piezas()
 
        
         if objetoAListar == 5:
