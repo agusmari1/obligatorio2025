@@ -38,12 +38,15 @@ class Sistema:
         self.actualizar_pedidos_pendientes()
 
     def actualizar_pedidos_pendientes(self):
+        pendientes_entregados = []
         for pedido in self._pedidos_pendientes:
             if pedido._puede_entregarse():
                 pedido._estado="entregado"
                 pedido._fecha_entrega=datetime.now()
                 pedido.actualizar_stock()
                 self._pedidos_entregados.append(pedido)
+                pendientes_entregados.append (pedido)
+        for pedido in pendientes_entregados:
                 self._pedidos_pendientes.remove(pedido)
 
     def mostrar_pedidos_entregados(self):
