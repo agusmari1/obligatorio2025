@@ -7,6 +7,8 @@ from maquina import Maquina
 from pieza import Pieza
 from exceptionClienteYaexiste import ClienteRepetido
 from exceptionPiezaYaExiste import PiezaRepetida
+from exceptionDigitos import Digitos
+
 
 
 sistema = Sistema() #crear una instancia para poder usar las funciones 
@@ -62,18 +64,39 @@ def opcion_registrar (menu_registrar):
                     for pieza in sistema._piezas:
                         if pieza.descripcion==descripcion:
                             raise PiezaRepetida()
-                        if descripcion==" ":
-                            raise ValueError() #la descripcion no puede ser vacia 
+                    if descripcion=="":
+                        raise ValueError() #la descripcion no puede ser vacia 
                     break
                 except PiezaRepetida as e:
                     print(e)
-                except ValueError as ve:
-                    print(ve)
-            
-            costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza: "))
-            unidades_en_lote= int(input("ingrese la cantidad de lotes de la pieza: "))
-            cantidad_disponible= int(input("Ingrese la cantidad por lote: "))
-            sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
+                except ValueError as e:
+                    print(e)
+            while True:
+                try:
+                    costo_adquisicion= float(input("ingrese el costo de adquisición de la pieza: "))
+                    if costo_adquisicion < 0:
+                        raise ValueError ("El costo no puede ser menor a 0")
+                    break
+                except ValueError:
+                    print("Se debe ingresar un numero positivo")
+            while True:
+                    try:
+                        cantidad_lotes= int(input("ingrese la cantidad de lotes de la pieza: "))
+                        if cantidad_lotes < 0:
+                            raise ValueError("Debe ingresar un numero entero positivo")
+                        break
+                    except ValueError:
+                        print("Ingrese un numero")
+            while True:
+                    try:
+                        unidades_en_lote= int(input("Ingrese la cantidad por lote: "))
+                        if unidades_en_lote <= 0:
+                            raise ValueError ("Ingrese la cantidad")
+                        break
+                    except ValueError:
+                        print("Se deben ingresar solo numeros")
+
+            sistema.registro_pieza(descripcion, costo_adquisicion, cantidad_lotes, unidades_en_lote)
             
         
 #REGISTRAR UNA MAQUINA
@@ -161,9 +184,9 @@ def opcion_registrar (menu_registrar):
                             if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
                                 raise ClienteRepetido("Ya existe un cliente con esa cedula")
                             
-                            if len(cedula_input)!=8:
-                                raise Exception(("La cédula debe tener exactamente 8 dígitos."))
-                                
+                        if len(cedula_input)!=8:
+                            raise Digitos()
+                            
                         break
 
                     except ClienteRepetido as e:
@@ -173,11 +196,21 @@ def opcion_registrar (menu_registrar):
                     except ValueError:
                         print("Error: la cédula debe contener solo números.")
                         print("Vuelve a registrar la cédula")
-                    except Exception as e:
-                        print("Error:", e)
-                        print("Vuelve a registrar la cédula.")
+                    except Digitos as e:
+                        print(e)
+    
+                while True:
+                    try:
 
-                telefono=input("Seleccione el telefono: ")
+                        telefono= int(input("Seleccione el telefono: "))
+                        if len(str(telefono))!= 9:
+                            raise Digitos("El numero debe contener 9 digitos")
+                        break
+                    except Digitos as e:
+                        print (e)
+                    except ValueError:
+                        print("El telefono deben ser solo numeros")
+                    
                 correo_electrónico=input("Indique el correo electrónico: ")
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
@@ -192,15 +225,25 @@ def opcion_registrar (menu_registrar):
                 telefono=input("Seleccione el telefono: ")
                 correo_electrónico=input("Indique el correo electrónico: ")
                 while True:
-                    RUT =input("Ingrese el rut: ")
+                    
                     try:
+                        RUT = int(input("Ingrese el rut: "))
                         for cliente in sistema._clientes:
                             if isinstance(cliente,Empresa) and cliente.RUT==RUT:
                                 raise ClienteRepetido()
+                        if len(str(RUT)) != 12: #Para transformar algo a string ponemos str para ver el largo
+                            raise Digitos ("El Rut debe tener 12 digitos")
+                        
                         break
                     
                     except ClienteRepetido as e:
                         print (e)
+                    except Digitos as e:
+                        print (e)
+                    except ValueError:
+                        print("Error: el RUT debe contener solo números.")
+                        print("Vuelve a registrar el RUT")
+
 
                 pagina_web=input("Ingrese la pagina web: ")
                 nuevo_cliente=Empresa(nombre,telefono,correo_electrónico,RUT ,pagina_web)

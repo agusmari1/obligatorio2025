@@ -46,7 +46,7 @@ class Empresa(Cliente):
         self._pagina_web=pagina_web
     
     def tipo_cliente(self):
-        return "Empresa"
+        return "empresa"
 
     @property
     def RUT(self):
