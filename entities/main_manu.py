@@ -162,6 +162,7 @@ def opcion_registrar (menu_registrar):
                                 raise ClienteRepetido("Ya existe un cliente con esa cedula")
                             
                             if len(cedula_input)!=8:
+                                raise Exception(("La cédula debe tener exactamente 8 dígitos."))
                                 
                         break
 
@@ -172,6 +173,9 @@ def opcion_registrar (menu_registrar):
                     except ValueError:
                         print("Error: la cédula debe contener solo números.")
                         print("Vuelve a registrar la cédula")
+                    except Exception as e:
+                        print("Error:", e)
+                        print("Vuelve a registrar la cédula.")
 
                 telefono=input("Seleccione el telefono: ")
                 correo_electrónico=input("Indique el correo electrónico: ")
