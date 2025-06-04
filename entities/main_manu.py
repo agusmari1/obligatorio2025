@@ -8,6 +8,7 @@ from pieza import Pieza
 from exceptionClienteYaexiste import ClienteRepetido
 from exceptionPiezaYaExiste import PiezaRepetida
 
+
 sistema = Sistema() #crear una instancia para poder usar las funciones 
 
 menu_registrar = [["Registrar:"],
@@ -151,17 +152,26 @@ def opcion_registrar (menu_registrar):
                 nombre=input("Seleccione el nombre: ")
 
                 while True:
-
-                    cedula=input("Ingrese la cedula: ")
-
                     try:
+
+                        cedula_input=(input("Ingrese la cedula: "))  #necesitas guardarlo como un string para calular el len
+                        cedula=int(cedula_input)
+                        
                         for cliente in sistema._clientes:
                             if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
                                 raise ClienteRepetido("Ya existe un cliente con esa cedula")
+                            
+                            if len(cedula_input)!=8:
+                                
                         break
+
                     except ClienteRepetido as e:
                         print (e)
                         print ("Vuelve a registrar la cedula")
+
+                    except ValueError:
+                        print("Error: la cédula debe contener solo números.")
+                        print("Vuelve a registrar la cédula")
 
                 telefono=input("Seleccione el telefono: ")
                 correo_electrónico=input("Indique el correo electrónico: ")
