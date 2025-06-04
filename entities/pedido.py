@@ -8,6 +8,7 @@ class Pedido:
         self._cliente=cliente
         self._maquina=maquina
         self._fecha_recepcion=datetime.now()
+        self._estado ="pendiente"
         self._fecha_entrega=None #despues decidimos si el pedido se puede entregar o no
     
         self._precio_final=self.calcular_precio()

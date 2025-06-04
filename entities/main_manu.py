@@ -228,8 +228,12 @@ def opcion_registrar (menu_registrar):
             print ("Tipo de cliente:")
             print ("            1. Cliente Particular")
             print ("            2. Empresa")
-            tipo_cliente= int(input("Seleccione la opcion 1 o 2: "))
-            
+            while True:
+                try:
+                    tipo_cliente= int(input("Seleccione la opcion 1 o 2: "))
+                    break
+                except ValueError:
+                    print("Ingrese el numero 1/2")
             if tipo_cliente== 1:
 
                 nombre=input("Seleccione el nombre: ")
@@ -261,9 +265,9 @@ def opcion_registrar (menu_registrar):
     
                 while True:
                     try:
-
-                        telefono= int(input("Seleccione el telefono: "))
-                        if len(str(telefono))!= 9:
+                        telefono= input("Seleccione el telefono: ")
+                        telefono_numero = int(telefono)
+                        if len((telefono))!= 9:
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
@@ -286,8 +290,9 @@ def opcion_registrar (menu_registrar):
                 # TELEFONO EMPRESA
                 while True:
                     try:
-                        telefono=int(input("Seleccione el telefono: "))
-                        if len(str(telefono))!= 9:
+                        telefono=input("Seleccione el telefono: ")
+                        telefono_numero = int(telefono)
+                        if len((telefono))!= 9:
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
@@ -344,9 +349,9 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
                         indice_cliente = int(input("Seleccione el numero de cliente que realiza el pedido: "))
-                        cliente_seleccionado = sistema._clientes [(indice_cliente -1)]
-                        if cliente_seleccionado < 0 or len(sistema._clientes)< cliente_seleccionado:
+                        if indice_cliente <= 0 or indice_cliente > len(sistema._clientes):
                             raise ValueError
+                        cliente_seleccionado = sistema._clientes [(indice_cliente -1)]
                         break
                     except ValueError:
                         print ("Ingrese uno de los numeros que se muestran en pantalla")
@@ -362,9 +367,9 @@ def opcion_registrar (menu_registrar):
                     while True:
                         try:
                             indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
-                            maquina_seleccionada = sistema._maquinas [(indice_maquina -1)]
-                            if maquina_seleccionada<0 or len(sistema._maquinas)<0:
+                            if indice_maquina<=0 or indice_maquina > len(sistema._maquinas):
                                 raise ValueError
+                            maquina_seleccionada = sistema._maquinas [(indice_maquina -1)]
                             break
                         except ValueError:
                             print ("Ingrese uno de los numeros que se muestran en pantalla")
