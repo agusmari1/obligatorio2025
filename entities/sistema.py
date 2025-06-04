@@ -132,11 +132,32 @@ class Sistema:
             else:
                  print("Maquina no disponible para la venta")
 
-#hhh
+    def costo_produccion_total(self):
+        costo_produccion=0
+        precio_venta=0
+        for pedido in self._pedidos_entregados:
+            maquina=pedido._maquina
+            costo_produccion+=maquina.costo_produccion
 
-#hhh
+            precio_venta+=pedido.calcular_precio()
 
+        ganancia_bruta=precio_venta-costo_produccion
+        impuesto=ganancia_bruta*0.25
+        ganancia_neta=ganancia_bruta-impuesto
+
+    
+        print(f"Costo total: ${costo_produccion}")
+        print(f"Precio venta total: ${precio_venta}")
+        print(f"Ganancia bruta: ${ganancia_bruta}")
+        print(f"Impuesto (25% IRAE): ${impuesto}")
+        print(f"Ganancia neta: ${ganancia_neta}")
+      
         
+    
+
+
+            
+
 
                    
 
