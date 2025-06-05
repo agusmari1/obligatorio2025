@@ -7,6 +7,7 @@ class Cliente(ABC):
         self._identidad=Cliente._id_unico
         self._nombre=nombre
         self._telefono=telefono
+   
         
         self._correo_electronico=correo_electrónico
 

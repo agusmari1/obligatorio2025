@@ -9,6 +9,7 @@ class Maquina:
         self._descripcion=descripcion
         self._requerimientos=[]
         self._costo_produccion=0.0
+        
 
     @property
     def codigo(self):

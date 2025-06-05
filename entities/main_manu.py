@@ -251,7 +251,7 @@ def opcion_registrar (menu_registrar):
                                 raise ClienteRepetido("Ya existe un cliente con esa cedula")
                             
                           
-                        if len(str(cedula))!=8:
+                        if len(cedula)!=8:
                             raise Digitos()
                         
                             
