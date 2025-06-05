@@ -105,8 +105,9 @@ def opcion_registrar (menu_registrar):
                         break
                     except ValueError:
                         print("Se deben ingresar solo numeros positivos")
-
-            sistema.registro_pieza(descripcion, costo_adquisicion, cantidad_lotes, unidades_en_lote)
+            
+            cantidad_disponible = cantidad_lotes*unidades_en_lote
+            sistema.registro_pieza(descripcion, costo_adquisicion, cantidad_lotes, cantidad_disponible)
             
         
 #REGISTRAR UNA MAQUINA

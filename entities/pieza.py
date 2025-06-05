@@ -2,7 +2,7 @@ class Pieza:
     _codigo_unico = 0
 
     #contructor
-    def __init__(self,descripcion,costo_adquisicion,unidades_en_lote,cantidad_disponible=0,):
+    def __init__(self,descripcion,costo_adquisicion,unidades_de_lote,cantidad_disponible=0,):
 
         Pieza._codigo_unico += 1
         self._codigo= Pieza._codigo_unico
@@ -10,7 +10,7 @@ class Pieza:
         self._descripcion = descripcion
         self._costo_adquisicion= costo_adquisicion
         self._cantidad_disponible=cantidad_disponible
-        self._unidades_en_lote=unidades_en_lote
+        self._unidades_de_lote=unidades_de_lote
 
     #getter
 
@@ -31,8 +31,8 @@ class Pieza:
         return self._cantidad_disponible
         
     @property
-    def unidades_en_lote(self):
-        return self._unidades_en_lote
+    def unidades_de_lote(self):
+        return self._unidades_de_lote
         
     #setter
 
@@ -61,8 +61,8 @@ class Pieza:
         if faltan<0:
             faltan=0
         if faltan>0:
-            lotes=faltan/pieza.unidades_en_lote
-            if faltan%pieza.unidades_en_lote!=0:
+            lotes=faltan/pieza.unidades_de_lote
+            if faltan%pieza.unidades_de_lote!=0:
                 lote+=1
             else:
                 lote=0
