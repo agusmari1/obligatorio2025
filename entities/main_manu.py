@@ -242,15 +242,18 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
 
-                        cedula_input=(input("Ingrese la cedula: "))  #necesitas guardarlo como un string para calular el len
-                        cedula=int(cedula_input)
+                        cedula=input("Ingrese la cedula: ") #necesitas guardarlo como un string para calular el len
+                        if cedula.isdigit()==False:
+                            raise ValueError()
                         
                         for cliente in sistema._clientes:
                             if isinstance(cliente,ClienteParticular) and cliente.cedula==cedula:
                                 raise ClienteRepetido("Ya existe un cliente con esa cedula")
                             
-                        if len(cedula_input)!=8:
+                          
+                        if len(str(cedula))!=8:
                             raise Digitos()
+                        
                             
                         break
 
@@ -267,8 +270,10 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
                         telefono= input("Seleccione el telefono: ")
-                        telefono_numero = int(telefono)
-                        if len((telefono))!= 9:
+                        if telefono.isdigit()==False:
+                            raise ValueError()
+                            print("El telefono deben ser solo numeros")
+                        if len((str(telefono)))!= 9:
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
@@ -292,8 +297,9 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
                         telefono=input("Seleccione el telefono: ")
-                        telefono_numero = int(telefono)
-                        if len((telefono))!= 9:
+                        if telefono.isdigit()==False:
+                            raise ValueError()
+                        if len((str(telefono)))!= 9:
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
@@ -302,11 +308,14 @@ def opcion_registrar (menu_registrar):
                         print("El telefono deben ser solo numeros")
                 # MAIL EMPRESA
                 correo_electrónico=input("Indique el correo electrónico: ")
+
                 # RUT EMPRESA
                 while True:
                     
                     try:
-                        RUT = int(input("Ingrese el rut: "))
+                        RUT =input("Ingrese el rut: ")
+                        if RUT.isdigit()==False:
+                            raise ValueError()
                         for cliente in sistema._clientes:
                             if isinstance(cliente,Empresa) and cliente.RUT==RUT:
                                 raise ClienteRepetido()
