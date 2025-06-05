@@ -107,7 +107,7 @@ def opcion_registrar (menu_registrar):
                         print("Se deben ingresar solo numeros positivos")
             
             cantidad_disponible = cantidad_lotes*unidades_en_lote
-            sistema.registro_pieza(descripcion, costo_adquisicion, cantidad_lotes, cantidad_disponible)
+            sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
             
         
 #REGISTRAR UNA MAQUINA
