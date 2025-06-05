@@ -26,7 +26,7 @@ class Reposicion:
 
     @property 
     def costo_total(self):
-        return self._pieza.costo_adquisicion * self.cantidad_lotes * self.pieza.unidades_de_lote
+        return self._pieza.costo_adquisicion * self.cantidad_lotes * self.pieza.unidades_en_lote
     
     def obtener_fecha_actual(self): #no ponemos property porque no es una propiedad permanente del objeto y no guarda ningun valor.
         return datetime.now()
