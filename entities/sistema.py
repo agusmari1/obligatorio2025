@@ -52,7 +52,6 @@ class Sistema:
 
     def mostrar_pedidos_entregados(self):
         print("Pedidos entregados:")
-        print ("                   ")
         if len(self._pedidos_entregados)==0:
             print("No hay pedidos entregados")
         else:
@@ -61,7 +60,7 @@ class Sistema:
                 print("----------")
 
     def mostrar_pedidos_pendientes(self):
-        print("Pedidos pendientes")
+        print("Pedidos pendientes: ")
         if len(self._pedidos_pendientes)==0:
             print("No hay pedidos pendientes")
         else:
@@ -88,11 +87,6 @@ class Sistema:
             pieza.mostrar_datos()
             print("----------")
 
-    def mostrar_maquinas(self):
-        for maquina in self._maquinas:
-            maquina.mostrar_datos()
-            print("----------")
-
     def pedido_listar_demanda_piezas(self):
         for pieza in self._piezas:
             total_necesario=0
@@ -112,7 +106,7 @@ class Sistema:
                     
             print("Pieza:", pieza.descripcion)
             print("Disponible:", pieza.cantidad_disponible)
-            print("Lote:", pieza.unidades_en_lote)
+            print("Cantidd en lote:", pieza.unidades_en_lote)
             print("Faltan:", faltan)
             print("Lotes a comprar:", lotes)
             print("--------------")

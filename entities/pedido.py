@@ -48,6 +48,9 @@ class Pedido:
     @property
     def precio_final(self):
         return self._precio_final
+    @property
+    def maquina(self):
+        return self._maquina
    
     
 

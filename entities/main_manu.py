@@ -371,9 +371,19 @@ def opcion_registrar (menu_registrar):
                     print ("---------------------------")
                 else:
                     print ("Maquinas disponibles: ")
-                    for i in range(len(sistema._maquinas)):
-                        maquina = sistema._maquinas [i] # cada elemento de la lista es un objeto maquina
-                        print (i + 1, " - ", maquina.descripcion) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
+                    i = 1
+                    for maquina in sistema._maquinas:
+                        puede_fabricarse = True
+                        for req in maquina._requerimientos:
+                            if req.cantidad > req.pieza.cantidad_disponible:
+                                puede_fabricarse = False
+                                break
+                        if puede_fabricarse:
+                            estado = "Disponible"
+                        else:
+                            estado = "No hay disponibilidad"
+                        print (i, " - ", maquina.descripcion, "-estado: ", estado) #como cada maquina es un objeto, aca solo usamos el atributo descripcion que es el que nos interesa
+                        i+= 1
                     while True:
                         try:
                             indice_maquina = int(input("Ingrese el numero de la maquina a pedir: "))
@@ -409,33 +419,37 @@ def opcion_registrar (menu_registrar):
 
 #REGISTRAR UNA REPOSICION
         elif objetoAregistrar == 5:
-            print ("Piezas disponibles:")
-            for pieza in sistema._piezas:
-                print (pieza.codigo, "-", pieza.descripcion , " - cantidad por lote - ", pieza.unidades_en_lote)
-            while True:
-                try:
-                    codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer: "))
-                    break
-                except ValueError:
-                    print("Solo se aceptan numeros")
-            pieza_encontrada = None
-            for pieza in sistema._piezas:
-                if pieza.codigo == codigo_pieza_a_reponer:
-                    pieza_encontrada = pieza
-                    break
-                    
-            if pieza_encontrada is not None:
-                cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer: "))
-                sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
-                costo_reposicion = cantidad_lotes*pieza_encontrada.unidades_en_lote*pieza_encontrada.costo_adquisicion
-                print ("Reposicion registrada correctamenrte")
-                print ("Costo de la reposic[on: ", costo_reposicion)
-                print ("Actualizacion de stock de la pieza: ", pieza_encontrada.cantidad_disponible)
-                print ("-------------------------------------------")
-                
+            if len(sistema._piezas) == 0:
+                print ("No hay piezas para reponer")
+                print("-----------------------------")
             else:
-                print ("No se encontró ninguna pieza con ese codigo")
-                print ("-------------------------------------------")
+                print ("Piezas disponibles:")
+                for pieza in sistema._piezas:
+                    print (pieza.codigo, "-", pieza.descripcion , " - cantidad por lote: ", pieza.unidades_en_lote, "- costo por pieza:", pieza.costo_adquisicion)
+                while True:
+                    try:
+                        codigo_pieza_a_reponer = int(input("Ingrese el codigo de la pieza que desea reponer: "))
+                        break
+                    except ValueError:
+                        print("Solo se aceptan numeros")
+                pieza_encontrada = None
+                for pieza in sistema._piezas:
+                    if pieza.codigo == codigo_pieza_a_reponer:
+                        pieza_encontrada = pieza
+                        break
+                    
+                if pieza_encontrada is not None:
+                    cantidad_lotes = int(input("Ingrese la cantidad de lotes que se van a reponer: "))
+                    sistema.registro_reposicion (pieza_encontrada, cantidad_lotes)
+                    costo_reposicion = cantidad_lotes*pieza_encontrada.unidades_en_lote*pieza_encontrada.costo_adquisicion
+                    print ("Reposicion registrada correctamenrte")
+                    print ("Costo de la reposic[on: ", costo_reposicion)
+                    print ("Actualizacion de stock de la pieza: ", pieza_encontrada.cantidad_disponible)
+                    print ("-------------------------------------------")
+                
+                else:
+                    print ("No se encontró ninguna pieza con ese codigo")
+                    print ("-------------------------------------------")
 
 #SAlIR DE REGISTRAR
         elif objetoAregistrar == 6:
@@ -456,10 +470,10 @@ def opcion_listar (menu_listar):
         print ("-----------------------")
         while True:
             try:
-                objetoAListar = int(input("Ingrese la opcion que desea listar"))
+                objetoAListar = int(input("Ingrese la opcion que desea listar: "))
                 break
             except ValueError:
-                print("Intente de ingresas un numero")
+                print("Intente de ingresar un numero: ")
                 for linea in menu_listar:
                     print (linea[0])
                 print ("-----------------------")
@@ -479,14 +493,14 @@ def opcion_listar (menu_listar):
             print ("-----------------------------------------------------------------------------------------------")
 
     # LISTAR PEDIDOS
-        if objetoAListar == 2:
+        elif objetoAListar == 2:
        
             print("Filtrar:")
             print("1.Sí")
             print("2.No")
             while True:
                 try:
-                    respuesta=int(input("Elija una opción(1/2)"))
+                    respuesta=int(input("Elija una opción(1/2): "))
                     if respuesta !=1 and respuesta != 2:
                         raise ValueError
                     break
@@ -498,38 +512,38 @@ def opcion_listar (menu_listar):
                 print("2.Entregados")
                 while True:
                     try:
-                        respuesta2=int(input("Elija una opción(1/2)"))
+                        respuesta2=int(input("Elija una opción(1/2): "))
                         if respuesta2 != 1 and respuesta2 != 2:
                             raise ValueError
                         break
                     except ValueError:
-                        print ("Elija 1/2")
+                        print ("Elija 1/2: ")
                 if respuesta2==1:
-                    lista_pedidos_pendientes=sistema.mostrar_pedidos_pendientes()
-                    print(lista_pedidos_pendientes)
+                    sistema.mostrar_pedidos_pendientes()
+                    
                 if respuesta2==2:
-                    lista_pedidos_entregados=sistema.mostrar_pedidos_entregados()
-                    print(lista_pedidos_entregados)
+                   sistema.mostrar_pedidos_entregados()
+
             elif respuesta==2:
-                lista_pedidos_pendientes = sistema.mostrar_pedidos_pendientes()
-                lista_pedidos_entregados = sistema.mostrar_pedidos_entregados()
-                print(lista_pedidos_pendientes)
-                print(lista_pedidos_entregados)
+                sistema.mostrar_pedidos_pendientes()
+                print("            ")
+                sistema.mostrar_pedidos_entregados()
+                
 
     #LISTAR MAQUINAS
-        if objetoAListar ==3:
+        elif objetoAListar ==3:
             lista_maquinas=sistema.mostrar_maquina()
 
     #LISTAR PIEZAS
-        if objetoAListar== 4:
+        elif objetoAListar== 4:
             lista_objetos= sistema.pedido_listar_demanda_piezas()
 
     #LISTAR CONTABILIDAD
-        if objetoAListar == 5:
+        elif objetoAListar == 5:
             costos=sistema.costo_produccion_total()        
 
     #SALIR
-        if objetoAListar == 6:
+        elif objetoAListar == 6:
             break
     #OTRAS
         else:
@@ -546,7 +560,6 @@ while True:
     if opcion1_2_3 == 1:
             opcion_registrar (menu_registrar)
     elif opcion1_2_3 == 2:
-            
             opcion_listar (menu_listar)
     elif opcion1_2_3== 3:
             print ("Saliste del sistema")
