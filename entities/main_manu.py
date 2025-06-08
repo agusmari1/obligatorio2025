@@ -108,12 +108,20 @@ def opcion_registrar (menu_registrar):
             
             cantidad_disponible = cantidad_lotes*unidades_en_lote
             sistema.registro_pieza(descripcion, costo_adquisicion, unidades_en_lote, cantidad_disponible)
+            print("Se registro correctamente")
             
         
 #REGISTRAR UNA MAQUINA
         elif objetoAregistrar == 2:
             print ("Se va a registrar una nueva maquina")
-            descripcion = input("Ingrese la descripcion de la maquina: ")
+            while True:
+                try:
+                    descripcion = input("Ingrese la descripcion de la maquina: ")
+                    if descripcion=="":
+                            raise ValueError("Ingrese una descripción")
+                    break
+                except ValueError as e:
+                    print (e)
             requerimientos=[]
             piezas_originales =sistema.obtener_piezas()
             piezas_disponibles = []
@@ -295,8 +303,7 @@ def opcion_registrar (menu_registrar):
                             print ("El correo electrónico debe tener un @")
                         else:
                             break
-            
-            
+              
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
                 sistema.registro_clientes(nuevo_cliente)
                 print ("Se ha registrado el cliente")
