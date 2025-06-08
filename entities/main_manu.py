@@ -270,18 +270,32 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
                         telefono= input("Seleccione el telefono: ")
-                        if telefono.isdigit()==False:
+
+                        nuevo_telefono=str(telefono)
+                        if nuevo_telefono[0]!="0" and nuevo_telefono[1]!="9":
+                            print("El telefono debe empezar con 09")
+                            raise ValueError()
+                           
+                        elif telefono.isdigit()==False:
                             raise ValueError()
                             print("El telefono deben ser solo numeros")
-                        if len((str(telefono)))!= 9:
+                        elif len((str(telefono)))!= 9:
+                            print("El telefono deben ser solo numeros")
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
                         print (e)
-                    except ValueError:
-                        print("El telefono deben ser solo numeros")
+                    except ValueError as e:
+                        print(e)
                     
-                correo_electrónico=input("Indique el correo electrónico: ")
+                       
+                while True:
+                        correo_electrónico=input("Indique el correo electrónico: ")
+                        if "@" not in correo_electrónico:
+                            print ("El correo electrónico debe tener un @")
+                        else:
+                            break
+            
             
                 nuevo_cliente= ClienteParticular(nombre,telefono,correo_electrónico,cedula)
                 sistema.registro_clientes(nuevo_cliente)
@@ -297,9 +311,13 @@ def opcion_registrar (menu_registrar):
                 while True:
                     try:
                         telefono=input("Seleccione el telefono: ")
-                        if telefono.isdigit()==False:
+                        nuevo_telefono=str(telefono)
+                        if nuevo_telefono[0]!="0" and nuevo_telefono[1]!="9":
+                            print("El telefono debe empezar con 09")
                             raise ValueError()
-                        if len((str(telefono)))!= 9:
+                        elif telefono.isdigit()==False:
+                            raise ValueError()
+                        elif len((str(telefono)))!= 9:
                             raise Digitos("El numero debe contener 9 digitos")
                         break
                     except Digitos as e:
