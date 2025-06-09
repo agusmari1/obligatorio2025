@@ -580,19 +580,24 @@ def opcion_listar (menu_listar):
 
 while True:
     menu_principal()
-    opcion1_2_3=int(input("Ingrese la opción que desea ejecutar: "))
+    opcion1_2_3=input("Ingrese la opción que desea ejecutar: ")
+    try:
+        opcion = int(opcion1_2_3)
+    except ValueError:
+        print("Solo se deben ingresar numeros")
+    else:
   
-    if opcion1_2_3 == 1:
+        if opcion == 1:
             opcion_registrar (menu_registrar)
-    elif opcion1_2_3 == 2:
+        elif opcion == 2:
             opcion_listar (menu_listar)
-    elif opcion1_2_3== 3:
+        elif opcion== 3:
             print ("Saliste del sistema")
             break
-    else:
-        print("El valor ingresado no es valido")
-        print ("Se debe ingresar 1, 2 o 3")
-        print ("-------------------------------")
+        else:
+            print("El valor ingresado no es valido")
+            print ("Se debe ingresar 1, 2 o 3")
+            print ("-------------------------------")
 
       
 
